@@ -581,7 +581,24 @@
 
                 <div style="margin-top: 30px;">
                     <p style="font-size: 1.1em; margin-bottom: 20px;">Remember: Technology is almost NEVER the problem. The problem is approaching it without COMPAS!</p>
-                    <button class="nav-button primary" onclick="resetGame()">Try Another Scenario</button>
+                    <button class="nav-button primary" onclick="showSummary()">Continue to Summary</button>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="completion-card" id="summary">
+                <div class="completion-title">🎓 Your COMPAS Journey Complete!</div>
+                <div class="badge">🧭</div>
+                <h2 id="summaryMessage"></h2>
+                
+                <div class="insights-list">
+                    <h3>📋 What You Accomplished:</h3>
+                    <div id="summaryContent"></div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <p style="font-size: 1.1em; margin-bottom: 20px;">The COMPAS framework works for any challenge - from kitchen crises to organizational transformation.</p>
+                    <button class="nav-button primary" onclick="resetGame()">Start Again</button>
                 </div>
             </div>
 
@@ -603,6 +620,15 @@
                 name: "Moth Scenario",
                 completionTitle: "You've Mastered Personal Problem-Solving!",
                 insightsTitle: "🦋 Your Moth-Fighting Wisdom:",
+                summaryTitle: "You've conquered the Great Moth Infestation using COMPAS!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Investigated the moth situation instead of panic-ordering flamethrowers",
+                    "🎯 <strong>Objective:</strong> Defined the real problem (moth-free pantry + edible food) vs. total moth annihilation",
+                    "📋 <strong>Method:</strong> Used systematic approach (freezing, bay leaves, containers) over dramatic solutions",
+                    "📊 <strong>Performance:</strong> Discovered simple solutions (airtight containers) beat complex ones",
+                    "🔄 <strong>Assessment:</strong> Shared learnings to help neighbors skip the flamethrower phase",
+                    "⭐ <strong>Super You:</strong> Developed systematic problem-solving that applies to any challenge"
+                ],
                 scenarios: [
                     // Context
                     {
@@ -775,6 +801,15 @@
                 name: "Nonprofit Scenario",
                 completionTitle: "You've Mastered Organizational AI Navigation!",
                 insightsTitle: "💼 Your AI Leadership Wisdom:",
+                summaryTitle: "You've successfully navigated the Nonprofit AI Panic using COMPAS!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Discovered your organization's actual AI reality through anonymous surveys",
+                    "🎯 <strong>Objective:</strong> Focused on real problems (20-hour grant reports) vs. vague 'AI transformation'",
+                    "📋 <strong>Method:</strong> Mapped current processes and tested simple solutions before complex AI",
+                    "📊 <strong>Performance:</strong> Achieved 16-hour monthly savings using mostly Excel formulas",
+                    "🔄 <strong>Assessment:</strong> Addressed AI bias concerns while preserving benefits through guidelines",
+                    "⭐ <strong>Super You:</strong> Became a thoughtful tech leader who solves problems systematically"
+                ],
                 scenarios: [
                     // Context
                     {
@@ -787,7 +822,7 @@
                             <p>Meanwhile, you discovered your communications coordinator is using ChatGPT to write donor emails, your program manager is experimenting with some AI scheduling tool, and your development director is terrified AI will replace her.</p>
                             <p><strong>The pressure is real:</strong> Everyone's talking AI, but what's actually happening in your organization?</p>
                         `,
-                        callout: `🔍 Like moths hiding in the pantry, AI tools are already breeding in the corners of your organization... but is that good or bad?`,
+                        callout: `🔍 AI tools are already breeding in the corners of your organization... but is that good or bad?`,
                         question: "Context: How do you understand your organization's AI reality?",
                         choices: [
                             { id: "A", text: "Send a stern email about unauthorized AI use and data security risks" },
@@ -797,7 +832,7 @@
                         ],
                         correct: "B",
                         feedback: {
-                            correct: "🎯 Perfect approach! Just like investigating where moths are actually hiding, you need to understand your reality before making decisions. An anonymous survey will reveal both the creative solutions staff have found AND the problems they're trying to solve. You might discover brilliant innovations or risky practices - but at least you'll know!\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Ask what repetitive tasks waste time<br>• Discover current AI experiments (good and bad)<br>• Map biggest time drains<br>• Promise no punishment for honesty<br>• Focus on problems, not solutions</div>",
+                            correct: "🎯 Perfect approach! You need to understand your reality before making decisions. An anonymous survey will reveal both the creative solutions staff have found AND the problems they're trying to solve. You might discover brilliant innovations or risky practices - but at least you'll know!\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Ask what repetitive tasks waste time<br>• Discover current AI experiments (good and bad)<br>• Map biggest time drains<br>• Promise no punishment for honesty<br>• Focus on problems, not solutions</div>",
                             incorrect: "🤔 That's jumping to solutions (or panic) before understanding the situation! You need to know what's actually happening before you can make good decisions. Try the survey approach to discover your reality."
                         }
                     },
@@ -845,10 +880,10 @@
                                 <li>You spending hours formatting and checking for errors</li>
                                 <li>Everyone using different date formats and naming conventions</li>
                             </ul>
-                            <p>The board expects an "AI solution," but you're learning that jumping straight to AI might be like using a flamethrower on moths - overkill that creates new problems.</p>
+                            <p>The board expects an "AI solution," but you're learning that jumping straight to AI might be overkill that creates new problems.</p>
                             <p><strong>Time for a systematic approach</strong> that actually solves the problem.</p>
                         `,
-                        callout: `🌿 Like choosing bay leaves over flamethrowers, sometimes the best method isn't the flashiest one.`,
+                        callout: `🌿 Sometimes the best method isn't the flashiest one.`,
                         question: "Method: What's your systematic approach?",
                         choices: [
                             { id: "A", text: "Map current process, identify repetitive steps, test simple fixes first (formulas, connections), use AI only where it adds value" },
@@ -879,7 +914,7 @@
                             <p>Grant reports now take 4 hours instead of 20. No AI required (yet)!</p>
                             <p><strong>The awkward realization:</strong> The board expects an "AI success story," but you've mostly used Excel formulas.</p>
                         `,
-                        callout: `💡 Like discovering that airtight containers beat fancy moth traps - sometimes simple solutions are the real winners.`,
+                        callout: `💡 Sometimes simple solutions are the real winners.`,
                         question: "Performance: How do you handle this non-AI success?",
                         choices: [
                             { id: "A", text: "Force AI into the process to meet board expectations" },
@@ -1139,13 +1174,31 @@
             }
         }
 
+        function showSummary() {
+            // Hide completion card and show summary
+            document.getElementById('completion').classList.remove('active');
+            document.getElementById('summary').classList.add('active');
+            
+            // Update summary content based on scenario
+            const scenarioData = scenarios[currentScenario];
+            document.getElementById('summaryMessage').textContent = scenarioData.summaryTitle;
+            
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = scenarioData.summaryContent.map(item => `
+                <div class="insight-item">
+                    ${item}
+                </div>
+            `).join('');
+        }
+
         function resetGame() {
             currentStep = 0;
             selectedChoices = {};
             currentScenario = null;
             
-            // Hide completion and game content
+            // Hide completion, summary and game content
             document.getElementById('completion').classList.remove('active');
+            document.getElementById('summary').classList.remove('active');
             document.getElementById('gameContent').classList.remove('active');
             
             // Show scenario selection
