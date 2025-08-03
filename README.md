@@ -1,6 +1,6 @@
-# COMPAS AI Learning Journey 🧭
+# COMPAS Learning Journey 🧭
 
-An interactive web-based learning experience that helps nonprofit leaders navigate AI adoption without burning down their organizations. Based on the COMPAS framework, this game uses humor, relatable scenarios, and a memorable pantry moth analogy to teach systematic AI implementation.
+An interactive web-based learning experience that teaches the COMPAS framework through two engaging scenarios. Learn systematic problem-solving without reaching for the flamethrower - whether you're dealing with pantry moths or nonprofit AI panic!
 
 🎮 **[Play the Game Live](https://joshuamtm.github.io/compas-ai-game/)**
 
@@ -36,22 +36,35 @@ Just like dealing with a pantry moth infestation, implementing AI requires:
 - Checking and adjusting your approach regularly
 - Getting slightly better with each attempt
 
+## Two Scenarios, Same Wisdom
+
+### 🦋 The Great Moth Infestation
+Learn COMPAS through a hilarious personal crisis involving pantry moths, vacuum cleaners, and the dangerous temptation of flamethrowers. Perfect for understanding the framework through a lighthearted, relatable crisis.
+
+### 💼 The Nonprofit AI Panic  
+Apply COMPAS to help Monica's arts nonprofit navigate board pressure to "implement AI" when the real problem is spreadsheet chaos. Ideal for organizational leaders facing technology pressure.
+
+Both scenarios teach identical COMPAS principles but through different lenses - showing how the framework applies to any challenge, from kitchen crises to boardroom pressure.
+
 ## Features
 
-- **Interactive Scenarios**: Work through realistic nonprofit AI challenges
+- **Choose Your Adventure**: Two complete scenarios teaching the same framework
 - **Immediate Feedback**: Learn why certain approaches work (or don't)
 - **Progress Tracking**: Visual progress through the COMPAS framework
 - **Mobile Responsive**: Learn on any device
 - **No Installation Required**: Just open in a web browser
+- **Scenario Reset**: Try both paths to see COMPAS applied differently
 
 ## How to Play
 
 1. Visit the [live game](https://joshuamtm.github.io/compas-ai-game/)
-2. Read each scenario carefully
-3. Choose the approach that best applies COMPAS principles
-4. Learn from the feedback
-5. Progress through all six stages
-6. Become a COMPAS Navigator!
+2. Choose your scenario: 🦋 Moth Crisis or 💼 Nonprofit AI Panic  
+3. Read each situation carefully
+4. Choose the approach that best applies COMPAS principles
+5. Learn from the detailed feedback
+6. Progress through all six COMPAS stages
+7. Become a COMPAS Navigator!
+8. Try the other scenario to see the same principles applied differently
 
 ## Local Development
 

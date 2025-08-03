@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMPAS AI Learning Journey</title>
+    <title>COMPAS Learning Journey</title>
     <style>
         * {
             margin: 0;
@@ -45,6 +45,77 @@
         .header p {
             color: #666;
             font-size: 1.1em;
+        }
+
+        /* Scenario Selection Screen */
+        .scenario-selection {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .scenario-selection.hidden {
+            display: none;
+        }
+
+        .selection-title {
+            text-align: center;
+            color: white;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .scenario-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .scenario-option {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .scenario-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border-color: #4a90a4;
+        }
+
+        .scenario-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .scenario-option h3 {
+            color: #2c5aa0;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .scenario-option p {
+            color: #666;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Game Content (hidden until scenario selected) */
+        .game-content {
+            display: none;
+        }
+
+        .game-content.active {
+            display: block;
+            animation: slideIn 0.5s ease;
         }
 
         .progress-container {
@@ -150,7 +221,7 @@
             font-weight: 600;
         }
 
-        .scenario-icon {
+        .scenario-icon-small {
             margin-right: 15px;
             font-size: 1.5em;
         }
@@ -393,6 +464,10 @@
                 width: 40px;
                 height: 40px;
             }
+
+            .scenario-options {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -435,384 +510,542 @@
                 <circle cx="30" cy="30" r="3" fill="#2c5aa0"/>
                 <circle cx="30" cy="30" r="1.5" fill="white"/>
             </svg>
-            <h1>COMPAS AI Learning Journey</h1>
-            <p>Navigate the AI infestation without burning down your nonprofit</p>
+            <h1>COMPAS Learning Journey</h1>
+            <p>Navigate any challenge without reaching for the flamethrower</p>
         </div>
 
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="step-indicators">
-                <div class="step-indicator active" data-step="0">
-                    <div class="step-icon">🔍</div>
-                    <span>Context</span>
+        <!-- Scenario Selection Screen -->
+        <div class="scenario-selection" id="scenarioSelection">
+            <h2 class="selection-title">Choose Your COMPAS Adventure</h2>
+            <div class="scenario-options">
+                <div class="scenario-option" onclick="selectScenario('moth')">
+                    <div class="scenario-icon">🦋</div>
+                    <h3>The Great Moth Infestation</h3>
+                    <p>Learn COMPAS through a hilarious personal crisis involving pantry moths, vacuum cleaners, and the temptation of flamethrowers.</p>
                 </div>
-                <div class="step-indicator" data-step="1">
-                    <div class="step-icon">🎯</div>
-                    <span>Objective</span>
-                </div>
-                <div class="step-indicator" data-step="2">
-                    <div class="step-icon">📋</div>
-                    <span>Method</span>
-                </div>
-                <div class="step-indicator" data-step="3">
-                    <div class="step-icon">📊</div>
-                    <span>Performance</span>
-                </div>
-                <div class="step-indicator" data-step="4">
-                    <div class="step-icon">🔄</div>
-                    <span>Assessment</span>
-                </div>
-                <div class="step-indicator" data-step="5">
-                    <div class="step-icon">⭐</div>
-                    <span>Super You</span>
+                <div class="scenario-option" onclick="selectScenario('nonprofit')">
+                    <div class="scenario-icon">💼</div>
+                    <h3>The Nonprofit AI Panic</h3>
+                    <p>Apply COMPAS to help Monica's arts nonprofit navigate the pressure to "implement AI" when the real problem is spreadsheet chaos.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Scenario Cards -->
-        <div class="scenario-card active" id="scenario-0">
-            <div class="scenario-title">
-                <span class="scenario-icon">🔍</span>
-                Context: Discovering Your AI Infestation
-            </div>
-            <div class="scenario-description">
-                <h3>🦟 The Monday Morning Swarm</h3>
-                <p>Picture this: You stumble into your Monday morning all-staff Zoom call (camera off, because who has time to get 'Zoom ready' before 9 AM?), and you're hit with:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li>Your communications intern is using AI to generate images of supporters who don't exist</li>
-                    <li>Your development associate is asking AI to write a grant proposal about using AI to write grant proposals</li>
-                    <li>Your program manager is having what can only be described as a torrid affair with Zapier</li>
-                </ul>
-                <p><strong>Reality check:</strong> More than 4 out of 5 nonprofit staff are already using AI. But how many are using it safely and effectively?</p>
-            </div>
-
-            <div class="moth-callout">
-                🦋 Like pantry moths hiding in your Bob's Red Mill oatmeal, AI tools are already breeding in the corners of your organization...
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">🔍</span>
-                    Context: How do you discover the full extent of your "Shadow AI" situation?
+        <!-- Game Content (hidden until scenario selected) -->
+        <div class="game-content" id="gameContent">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> Send out a threatening email about unauthorized AI use and data breaches
+                <div class="step-indicators">
+                    <div class="step-indicator active" data-step="0">
+                        <div class="step-icon">🔍</div>
+                        <span>Context</span>
                     </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> Create an anonymous survey to map out how staff are using AI (officially and unofficially) and what problems they're trying to solve
+                    <div class="step-indicator" data-step="1">
+                        <div class="step-icon">🎯</div>
+                        <span>Objective</span>
                     </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> Buy an enterprise AI solution to standardize everything immediately
+                    <div class="step-indicator" data-step="2">
+                        <div class="step-icon">📋</div>
+                        <span>Method</span>
                     </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> Ignore it and hope the problem sorts itself out
+                    <div class="step-indicator" data-step="3">
+                        <div class="step-icon">📊</div>
+                        <span>Performance</span>
                     </div>
-                </div>
-                <div class="feedback" id="feedback-0"></div>
-            </div>
-        </div>
-
-        <div class="scenario-card" id="scenario-1">
-            <div class="scenario-title">
-                <span class="scenario-icon">🎯</span>
-                Objective: Define the ACTUAL Problem (No Flamethrowers!)
-            </div>
-            <div class="scenario-description">
-                <h3>🔥 Avoiding the Flamethrower Approach</h3>
-                <p>Good job gathering context! Your anonymous survey revealed:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li>23 different AI tools in use across 15 staff members</li>
-                    <li>Monthly reports taking 3 days to compile manually</li>
-                    <li>Donor acknowledgments backed up by 2 weeks</li>
-                    <li>Staff spending 40% of time on repetitive data entry</li>
-                </ul>
-                <p><strong>The temptation:</strong> Your board wants you to "implement an AI strategy" (whatever that means). But remember - when dealing with pantry moths, a flamethrower is NOT the solution!</p>
-            </div>
-
-            <div class="moth-callout">
-                🔥 "Dad, why do you need a flamethrower?" Sometimes the most obvious solution creates more problems than it solves...
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">🎯</span>
-                    Objective: What's the REAL problem you need to solve?
-                </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> "We need to become an AI-powered nonprofit to stay competitive"
+                    <div class="step-indicator" data-step="4">
+                        <div class="step-icon">🔄</div>
+                        <span>Assessment</span>
                     </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> "We need to implement AI across all departments immediately"
+                    <div class="step-indicator" data-step="5">
+                        <div class="step-icon">⭐</div>
+                        <span>Super You</span>
                     </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> "We need to reduce the 3 days spent on monthly reports to 3 hours, freeing staff to focus on donor relationships"
-                    </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> "We need to ban all unauthorized AI use until we have policies"
-                    </div>
-                </div>
-                <div class="feedback" id="feedback-1"></div>
-            </div>
-        </div>
-
-        <div class="scenario-card" id="scenario-2">
-            <div class="scenario-title">
-                <span class="scenario-icon">📋</span>
-                Method: Your Three-Pronged Attack Plan
-            </div>
-            <div class="scenario-description">
-                <h3>🗺️ Crafting Your Non-Flamethrower Approach</h3>
-                <p>Smart objective! Now you need a method that won't burn down your nonprofit. Your monthly reporting process involves:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li>5 different spreadsheets that don't talk to each other</li>
-                    <li>Manual data entry from 3 systems</li>
-                    <li>Sarah (Finance) who knows the secret formulas</li>
-                    <li>Marcus (Programs) who "has his own way" of tracking outcomes</li>
-                </ul>
-                <p><strong>Remember:</strong> Like dealing with moths, you need a systematic approach - not a panic response!</p>
-            </div>
-
-            <div class="moth-callout">
-                🌿 Just as bay leaves and pheromone traps beat flamethrowers for moths, thoughtful methods beat rushing to implement AI everywhere...
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">📋</span>
-                    Method: What's your systematic approach to the reporting problem?
-                </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> Map the current process, identify repetitive steps, test simple automations (AI or not), run parallel for a month with Sarah and Marcus
-                    </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> Buy the most advanced AI reporting tool and mandate everyone use it starting Monday
-                    </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> Have IT implement a solution and train staff later
-                    </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> Let Sarah keep doing it her way but give her ChatGPT access
-                    </div>
-                </div>
-                <div class="feedback" id="feedback-2"></div>
-            </div>
-        </div>
-
-        <div class="scenario-card" id="scenario-3">
-            <div class="scenario-title">
-                <span class="scenario-icon">📊</span>
-                Performance: The Plot Twist Discovery
-            </div>
-            <div class="scenario-description">
-                <h3>💡 When Simple Solutions Emerge</h3>
-                <p>Two weeks into your method implementation, something interesting happened:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li>You discovered 60% of the reporting time was spent re-entering data that already existed</li>
-                    <li>A simple Excel formula (no AI needed!) automated half the work</li>
-                    <li>Basic Zapier connections eliminated another 30%</li>
-                    <li>Only 20% actually benefited from AI assistance</li>
-                </ul>
-                <p><strong>The revelation:</strong> Sometimes exploring AI solutions reveals that simpler fixes can achieve most of your objectives!</p>
-            </div>
-
-            <div class="moth-callout">
-                💡 Like discovering that freezing grains kills moth larvae (who knew?), sometimes the best solution isn't the fanciest one...
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">📊</span>
-                    Performance: How do you move forward with this discovery?
-                </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> Abandon the project since it's not "AI enough" for the board
-                    </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> Implement the simple solutions first, use AI only where it adds real value, and celebrate the time savings regardless of the technology used
-                    </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> Force AI into more parts of the process to justify the "AI initiative"
-                    </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> Start over with a fully AI-based approach
-                    </div>
-                </div>
-                <div class="feedback" id="feedback-3"></div>
-            </div>
-        </div>
-
-        <div class="scenario-card" id="scenario-4">
-            <div class="scenario-title">
-                <span class="scenario-icon">🔄</span>
-                Assessment: Keep Checking, Keep Improving
-            </div>
-            <div class="scenario-description">
-                <h3>📏 Measuring Your Moth-Fighting Success</h3>
-                <p>After 60 days, it's time to assess. Your results:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li>Monthly reports now take 4 hours instead of 3 days ✅</li>
-                    <li>Sarah loves the automated formulas</li>
-                    <li>Marcus discovered the AI tool suggests incorrect categorizations for 15% of program outcomes</li>
-                    <li>Staff are asking to apply this approach to other painful processes</li>
-                </ul>
-                <p><strong>New challenge:</strong> The AI categorization errors could affect your grant reporting accuracy. What now?</p>
-            </div>
-
-            <div class="moth-callout">
-                🔍 Like checking moth traps weekly, continuous assessment reveals what's working and what needs adjustment...
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">🔄</span>
-                    Assessment: How do you handle the categorization issue?
-                </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> Remove AI from outcome categorization, add human review for accuracy, document this as a learning for future AI implementations
-                    </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> Keep using the AI and manually fix errors as they appear
-                    </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> Buy a more expensive AI tool that promises better accuracy
-                    </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> Ignore the errors - 85% accuracy is good enough
-                    </div>
-                </div>
-                <div class="feedback" id="feedback-4"></div>
-            </div>
-        </div>
-
-        <div class="scenario-card" id="scenario-5">
-            <div class="scenario-title">
-                <span class="scenario-icon">⭐</span>
-                Super You: The Continuous COMPAS Navigator
-            </div>
-            <div class="scenario-description">
-                <h3>🚀 Your Transformation Through Iteration</h3>
-                <p>Six months later, you've been through the COMPAS cycle three times:</p>
-                <ul style="margin: 15px 0; padding-left: 25px;">
-                    <li><strong>Cycle 1:</strong> Monthly reporting (saved 20 hours/month)</li>
-                    <li><strong>Cycle 2:</strong> Donor acknowledgments (reduced backlog to 48 hours)</li>
-                    <li><strong>Cycle 3:</strong> Volunteer scheduling (50% fewer emails)</li>
-                </ul>
-                <p>Each time, you discovered different solutions - some AI, some not. Your staff now come to you with problems, not prescribed tech solutions. The board sees you as the thoughtful tech leader who gets results.</p>
-                <p><strong>The magic:</strong> You've become 1% better with each iteration. Over months, that compounds into dramatic improvement.</p>
-            </div>
-
-            <div class="moth-callout">
-                ⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving." - One COMPAS cycle at a time!
-            </div>
-
-            <div class="compas-section">
-                <div class="compas-header">
-                    <span class="compas-icon">⭐</span>
-                    Super You: What makes you a true COMPAS navigator?
-                </div>
-                <div class="choice-grid">
-                    <div class="choice-button" data-choice="A">
-                        <strong>A)</strong> You approach each new challenge with COMPAS, focusing on real problems rather than trendy solutions, and get better with each iteration
-                    </div>
-                    <div class="choice-button" data-choice="B">
-                        <strong>B)</strong> You've become an AI expert who can code and implement any solution
-                    </div>
-                    <div class="choice-button" data-choice="C">
-                        <strong>C)</strong> You've successfully implemented AI in every department
-                    </div>
-                    <div class="choice-button" data-choice="D">
-                        <strong>D)</strong> You've eliminated all manual processes in your organization
-                    </div>
-                </div>
-                <div class="feedback" id="feedback-5"></div>
-            </div>
-        </div>
-
-        <!-- Completion Card -->
-        <div class="completion-card" id="completion">
-            <div class="completion-title">🎉 You're a COMPAS Navigator!</div>
-            <div class="badge">🧭</div>
-            <h2>You've Mastered the Art of Not Burning Down Your Nonprofit!</h2>
-            
-            <div class="insights-list">
-                <h3>🦋 Your Moth-Fighting Wisdom:</h3>
-                <div class="insight-item">
-                    <strong>Context Over Panic:</strong> Like discovering moths in your pantry, understanding the full situation prevents flamethrower solutions.
-                </div>
-                <div class="insight-item">
-                    <strong>Real Problems Over Buzzwords:</strong> "We need AI" is not an objective. "Save 20 hours monthly on reports" is.
-                </div>
-                <div class="insight-item">
-                    <strong>Systematic Methods Win:</strong> Bay leaves and pheromone traps beat flamethrowers. Simple formulas might beat AI.
-                </div>
-                <div class="insight-item">
-                    <strong>Progress Over Perfection:</strong> Celebrating all improvements, whether AI-powered or not, keeps momentum going.
-                </div>
-                <div class="insight-item">
-                    <strong>Continuous Assessment:</strong> Like checking moth traps, regular evaluation prevents small issues from becoming infestations.
-                </div>
-                <div class="insight-item">
-                    <strong>Compound Improvement:</strong> Each COMPAS cycle makes you 1% better. Over time, you become dramatically more effective.
                 </div>
             </div>
 
-            <div style="margin-top: 30px;">
-                <p style="font-size: 1.1em; margin-bottom: 20px;">Remember: Technology is almost NEVER the problem. The problem is approaching it without COMPAS!</p>
-                <button class="nav-button primary" onclick="resetGame()">Navigate Another Challenge</button>
-            </div>
-        </div>
+            <!-- Scenario content will be injected here -->
+            <div id="scenarioContent"></div>
 
-        <div class="navigation">
-            <button class="nav-button secondary" id="prevBtn" onclick="previousStep()" disabled>← Previous</button>
-            <button class="nav-button primary" id="nextBtn" onclick="nextStep()" disabled>Next Step →</button>
+            <!-- Completion Card -->
+            <div class="completion-card" id="completion">
+                <div class="completion-title">🎉 You're a COMPAS Navigator!</div>
+                <div class="badge">🧭</div>
+                <h2 id="completionMessage"></h2>
+                
+                <div class="insights-list">
+                    <h3 id="insightsTitle"></h3>
+                    <div id="insightsContent"></div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <p style="font-size: 1.1em; margin-bottom: 20px;">Remember: Technology is almost NEVER the problem. The problem is approaching it without COMPAS!</p>
+                    <button class="nav-button primary" onclick="resetGame()">Try Another Scenario</button>
+                </div>
+            </div>
+
+            <div class="navigation" id="navigation">
+                <button class="nav-button secondary" id="prevBtn" onclick="previousStep()" disabled>← Previous</button>
+                <button class="nav-button primary" id="nextBtn" onclick="nextStep()" disabled>Next Step →</button>
+            </div>
         </div>
     </div>
 
     <script>
         let currentStep = 0;
         let selectedChoices = {};
-        let correctAnswers = {
-            0: 'B', // Context: Anonymous survey to discover Shadow AI
-            1: 'C', // Objective: Specific, measurable goal (not buzzwords)
-            2: 'A', // Method: Systematic approach with all stakeholders
-            3: 'B', // Performance: Implement simple solutions first
-            4: 'A', // Assessment: Remove AI where it doesn't work, document learnings
-            5: 'A'  // Super You: Continuous improvement through COMPAS cycles
-        };
-
-        let feedbackMessages = {
-            0: {
-                correct: "🎯 Excellent! Just like discovering where moths are actually hiding (not where you think they are), anonymous surveys reveal the true 'Shadow AI' situation. You'll discover both hidden brilliance and hidden risks - crucial context before making any decisions.\n\n<div class='implementation-tip'><h4>🛠️ Real Context Gathering:</h4>• Ask 'What repetitive tasks eat your time?'<br>• Include 'What AI tools are you already trying?'<br>• Promise amnesty for honest responses<br>• Map time drains AND current experiments</div>",
-                incorrect: "🤔 Remember, panicking about AI is like buying a flamethrower for moths - it might seem decisive but creates bigger problems. Context means understanding what's actually happening, not controlling or ignoring it. Try the survey approach!"
+        let currentScenario = null;
+        
+        // Scenario data structure
+        const scenarios = {
+            moth: {
+                name: "Moth Scenario",
+                completionTitle: "You've Mastered Personal Problem-Solving!",
+                insightsTitle: "🦋 Your Moth-Fighting Wisdom:",
+                scenarios: [
+                    // Context
+                    {
+                        title: "Context: The 6:14 AM Crisis",
+                        icon: "🔍",
+                        description: `
+                            <h3>🦋 The Pantry Moth Apocalypse</h3>
+                            <p>It's Tuesday morning, 6:14 AM. You're standing on a kitchen chair, wielding a vacuum cleaner like a deranged domestic gladiator. Your opponent? A swarm of pantry moths that have transformed your Bob's Red Mill steel-cut oatmeal into a lepidopteran discotheque.</p>
+                            <p>Your first thought: "Maybe I should burn down the kitchen." Your second thought: "No, just the pantry." Your third thought: "Actually, let me ask ChatGPT how to violently subdue pantry moths...ethically?"</p>
+                            <p><strong>The panic is real.</strong> But what do you actually know about this situation?</p>
+                        `,
+                        callout: `🦋 Before you can solve any problem, you need to understand the full context. Where are the moths coming from? What are they after? Why do they have a particular fetish for Bob's Red Mill products?`,
+                        question: "Context: What's your first step in understanding this moth situation?",
+                        choices: [
+                            { id: "A", text: "Google 'industrial strength moth genocide equipment' and order everything with next-day delivery" },
+                            { id: "B", text: "Investigate where they're actually coming from, what they're eating, and how long this has been going on" },
+                            { id: "C", text: "Call an exterminator immediately - this is beyond your expertise" },
+                            { id: "D", text: "Move out. The moths have won. This is their house now." }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Brilliant! Just like in any crisis, understanding the actual situation beats panic ordering flamethrowers from Amazon. You discover: moths are coming from one contaminated bag, they've been there for weeks, and they particularly love grains stored in paper bags. This context changes everything!\n\n<div class='implementation-tip'><h4>🛠️ Context Gathering:</h4>• Check all food storage areas systematically<br>• Look for larvae, webbing, and adult moths<br>• Note which products are affected<br>• Understand the timeline and spread</div>",
+                            incorrect: "🤔 Classic panic response! But without understanding the context (where they're coming from, what they're eating), you're just flailing around. You might order expensive solutions that don't address the actual problem. Start with investigation!"
+                        }
+                    },
+                    // Objective
+                    {
+                        title: "Objective: Define the ACTUAL Problem",
+                        icon: "🎯",
+                        description: `
+                            <h3>🔥 The Flamethrower Temptation</h3>
+                            <p>Your investigation revealed the context: moths originated from one bag of flour, spread to nearby grains, and love your premium organic products. You've contained the immediate swarm with your vacuum.</p>
+                            <p>Now your engineering-savvy son finds you tinkering with the flamethrower you panic-ordered from Amazon. He asks, quite reasonably: "Uhh, Dad...why do you need a flamethrower?"</p>
+                            <p>You explain the moth situation. He replies: "You're an idiot. A flamethrower is not a good solution and it's going to cause many more problems than it solves. Why don't we work on the root of the pantry moth problem instead?"</p>
+                            <p><strong>He's right.</strong> What's the actual objective here?</p>
+                        `,
+                        callout: `🔥 "Solutionizing" - jumping to dramatic solutions before defining the actual problem. We all do it!`,
+                        question: "Objective: What's the REAL problem you need to solve?",
+                        choices: [
+                            { id: "A", text: "Achieve total moth annihilation using maximum firepower" },
+                            { id: "B", text: "Prevent future infestations while safely removing current moths and protecting remaining food" },
+                            { id: "C", text: "Install an automated moth detection and elimination system" },
+                            { id: "D", text: "Create the most moth-proof pantry known to humanity" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect! You've avoided the flamethrower trap. Your objective is specific and achievable: remove current moths, save uncontaminated food, and prevent future infestations. No kitchen burning required! This is exactly how to think about objectives - solve the actual problem, not the dramatic version in your head.\n\n<div class='implementation-tip'><h4>🎯 Setting Real Objectives:</h4>• Focus on the root problem, not symptoms<br>• Make it specific and achievable<br>• Avoid over-engineering the solution<br>• Consider collateral damage of dramatic approaches</div>",
+                            incorrect: "🔥 That's flamethrower thinking! You're focused on dramatic solutions rather than the actual problem. Remember: the objective is to have a moth-free pantry with edible food, not to wage war or build a fortress."
+                        }
+                    },
+                    // Method
+                    {
+                        title: "Method: Your Three-Pronged Plan",
+                        icon: "📋",
+                        description: `
+                            <h3>🗺️ From Flamethrower to Systematic Approach</h3>
+                            <p>With your son's help (and the flamethrower safely returned to Amazon), you need a method that actually works. After some research, you discover that moth elimination isn't about dramatic gestures - it's about systematic action.</p>
+                            <p>You learn that moths hate cold, love pheromones, and can't penetrate certain barriers. Armed with this knowledge, you can create a plan that doesn't involve burning down your kitchen.</p>
+                            <p><strong>Time for a method</strong> that would make any engineer proud (and keep your house intact).</p>
+                        `,
+                        callout: `🌿 Like bay leaves instead of flamethrowers - systematic methods beat dramatic gestures every time.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Freeze all grains for 72 hours, deploy bay leaves as deterrent, install pheromone traps, transfer everything to airtight containers" },
+                            { id: "B", text: "Throw away everything and start fresh with all new food" },
+                            { id: "C", text: "Spray the entire pantry with the strongest pesticide available" },
+                            { id: "D", text: "Set up a 24/7 moth surveillance system with automatic alerts" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Brilliant systematic thinking! Freezing kills larvae (addressing the root), bay leaves repel new moths (prevention), pheromone traps catch stragglers (monitoring), and airtight containers prevent future infestations (long-term solution). This is exactly how method works - multiple complementary approaches that address different aspects of the problem.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Address immediate problem (freezing)<br>• Prevent recurrence (bay leaves, containers)<br>• Monitor progress (traps)<br>• Use multiple complementary approaches<br>• Avoid single-point-of-failure solutions</div>",
+                            incorrect: "🤔 That's either wasteful, dangerous, or over-engineered! A good method uses multiple simple, proven approaches that work together. Think systematic, not dramatic."
+                        }
+                    },
+                    // Performance
+                    {
+                        title: "Performance: The Surprising Discovery",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Simple Solutions Win</h3>
+                            <p>Two weeks into your method implementation, you're checking the pheromone traps (which cost more than the oatmeal they're protecting). The freezer trick worked perfectly - no more larvae. Bay leaves are stationed like tiny soldiers throughout your pantry.</p>
+                            <p>But here's the plot twist: You discover that 90% of your moth problem could have been prevented by one simple change - storing grains in airtight containers instead of leaving them in paper bags. The fancy pheromone traps? They've caught 3 moths. The bay leaves? Jury's still out.</p>
+                            <p><strong>The revelation:</strong> The simplest solution (proper storage) would have prevented the whole crisis.</p>
+                        `,
+                        callout: `💡 Sometimes the best solution isn't the most complex one. It's the one that actually works.`,
+                        question: "Performance: How do you handle this discovery?",
+                        choices: [
+                            { id: "A", text: "Feel foolish for overcomplicating things and remove all the fancy solutions" },
+                            { id: "B", text: "Celebrate that you found what works, keep the simple solutions, and view the traps as insurance" },
+                            { id: "C", text: "Double down on complex solutions to justify the effort" },
+                            { id: "D", text: "Start a blog about your moth-fighting journey to help others" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect mindset! You discovered that simple solutions (airtight containers) solve 90% of the problem - that's a win! The traps serve as early warning systems, and you've learned valuable lessons. This is exactly how performance works: implement, discover what actually works, and adjust without ego.\n\n<div class='implementation-tip'><h4>💡 Performance Insights:</h4>• Celebrate when simple solutions work<br>• Don't feel obligated to use complex tools<br>• View 'overengineering' as learning<br>• Focus on what actually solved the problem<br>• Keep useful elements as safeguards</div>",
+                            incorrect: "🤔 Don't let perfect be the enemy of good! Finding out that simple solutions work best IS the success. Learn from it and move forward."
+                        }
+                    },
+                    // Assessment
+                    {
+                        title: "Assessment: The Three-Month Check-In",
+                        icon: "🔄",
+                        description: `
+                            <h3>📏 Measuring Your Moth-Free Victory</h3>
+                            <p>Three months later, you're doing your regular pantry check. The results:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Zero moths in pheromone traps for 8 weeks ✅</li>
+                                <li>All grains in airtight containers ✅</li>
+                                <li>Bay leaves... well, they smell nice? 🤷</li>
+                                <li>Your premium Bob's Red Mill oats remain unmolested ✅</li>
+                            </ul>
+                            <p>But then you notice something: your neighbor just posted on NextDoor about a moth infestation. They're asking about exterminators and considering throwing away hundreds of dollars of food.</p>
+                            <p><strong>Assessment moment:</strong> What do you do with your hard-won knowledge?</p>
+                        `,
+                        callout: `🔍 Assessment isn't just about checking if something worked - it's about learning and sharing what you've discovered.`,
+                        question: "Assessment: How do you apply your learning?",
+                        choices: [
+                            { id: "A", text: "Share your simple solution (airtight containers) and save them from the flamethrower phase" },
+                            { id: "B", text: "Keep quiet - they need to learn the hard way like you did" },
+                            { id: "C", text: "Recommend they buy all the complex solutions you tried" },
+                            { id: "D", text: "Suggest they just move houses like you initially considered" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Excellent! Sharing your simple, effective solution helps others skip the panic phase and jump straight to what works. This is peak assessment - not just measuring success, but using your learning to help others. You've turned your moth crisis into community wisdom!\n\n<div class='implementation-tip'><h4>🔄 Assessment Actions:</h4>• Regularly check if solutions still work<br>• Document what was actually effective<br>• Share learnings to help others<br>• Skip the drama, share the solution<br>• Build on what you've learned</div>",
+                            incorrect: "🤔 Why let others suffer through the flamethrower phase? Good assessment means sharing what actually worked, helping others avoid your mistakes."
+                        }
+                    },
+                    // Super You
+                    {
+                        title: "Super You: The Compound Effect",
+                        icon: "⭐",
+                        description: `
+                            <h3>🚀 From Moth Crisis to Life Wisdom</h3>
+                            <p>Six months later, something interesting has happened. The moth crisis taught you something profound: your pattern of panicking and reaching for dramatic solutions extended far beyond the pantry.</p>
+                            <p>Since then, you've applied this approach to other challenges:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Car trouble:</strong> Investigated symptoms before buying random parts</li>
+                                <li><strong>Computer slowdown:</strong> Checked storage before buying new laptop</li>
+                                <li><strong>Garden pests:</strong> Tried companion planting before pesticides</li>
+                            </ul>
+                            <p>Each time, you got a bit better at pausing, understanding context, and finding simple solutions. The compound effect is remarkable.</p>
+                            <p><strong>The transformation:</strong> You've become someone who solves problems systematically instead of dramatically.</p>
+                        `,
+                        callout: `⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving."`,
+                        question: "Super You: What made the real difference?",
+                        choices: [
+                            { id: "A", text: "Learning to pause, investigate, and find simple solutions before reaching for flamethrowers" },
+                            { id: "B", text: "Becoming an expert in moth biology and pest control" },
+                            { id: "C", text: "Having the most organized pantry in the neighborhood" },
+                            { id: "D", text: "Never having to deal with moths again" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 That's it! The Super You isn't about becoming a moth expert - it's about developing a systematic approach to ANY problem. Each time you pause before panicking, investigate before solutionizing, and try simple fixes before complex ones, you get better. It compounds into wisdom that applies everywhere!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Pause before panicking<br>• Context before solutions<br>• Simple before complex<br>• Learn from each experience<br>• Apply lessons broadly<br>• Compound improvement over time</div>",
+                            incorrect: "🤔 The real superpower isn't domain expertise - it's the systematic approach you can apply to ANY problem. Think bigger!"
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Context Over Panic", text: "Like discovering moths in your pantry, understanding the full situation prevents flamethrower solutions." },
+                    { title: "Real Problems Over Drama", text: "'Eliminate all moths forever' is not an objective. 'Protect food and prevent reinfestation' is." },
+                    { title: "Systematic Methods Win", text: "Bay leaves and pheromone traps beat flamethrowers. Simple solutions often beat complex ones." },
+                    { title: "Celebrate Simple Success", text: "When airtight containers solve 90% of the problem, that's a win, not a disappointment." },
+                    { title: "Share Your Learning", text: "Help others skip the flamethrower phase and jump straight to what works." },
+                    { title: "Compound Improvement", text: "Each problem solved systematically makes you better at solving the next one." }
+                ]
             },
-            1: {
-                correct: "🎯 Perfect! You avoided the flamethrower trap! This objective is specific, measurable, and solves a real pain point. Unlike vague 'AI transformation' goals, you can actually track success and show concrete value. Plus, freed time goes to donor relationships, not just efficiency metrics.\n\n<div class='implementation-tip'><h4>🎯 SMART Objectives for AI:</h4>• Start with ONE painful, repetitive process<br>• Quantify current time/resource drain<br>• Set specific reduction targets<br>• Define where saved time will go<br>• 60-90 day timeframes for quick wins</div>",
-                incorrect: "🔥 Careful! That's flamethrower thinking - impressive sounding but likely to cause more problems. Remember: 'We need AI' isn't an objective, it's a solution looking for a problem. Focus on specific, measurable pain points."
-            },
-            2: {
-                correct: "🎯 Brilliant method! Like using bay leaves instead of burning down your pantry, this systematic approach reduces risk and builds confidence. Including Sarah and Marcus prevents the #1 failure: solutions that work in theory but fail with real humans. Plus, you might discover non-AI solutions!\n\n<div class='implementation-tip'><h4>📋 Method Best Practices:</h4>• Always map current process first<br>• Test simple fixes before complex ones<br>• Include ALL affected staff<br>• Run parallel systems initially<br>• Plan for both AI and non-AI solutions</div>",
-                incorrect: "🔥 That's flamethrower thinking! Forcing new tools without understanding current processes or including the people who do the work daily is a recipe for disaster. Remember: systematic beats dramatic every time."
-            },
-            3: {
-                correct: "🎯 Outstanding! You've discovered the hidden truth: not every problem needs AI! By implementing simple solutions first and using AI only where it truly adds value, you're getting results AND building trust. This is exactly what smart implementation looks like.\n\n<div class='implementation-tip'><h4>💡 Performance Insights:</h4>• Celebrate ALL improvements, regardless of tech<br>• Simple solutions often solve 80% of problems<br>• AI shines for the complex 20%<br>• Results matter more than buzzwords<br>• Document what worked (AI or not) for future cycles</div>",
-                incorrect: "⚠️ Don't let 'AI strategy' pressure override good judgment! If simple solutions work, use them. Forcing AI where it's not needed wastes resources and erodes trust. Focus on results, not technology theater."
-            },
-            4: {
-                correct: "🎯 Perfect assessment thinking! Like checking moth traps and adjusting your approach, you're protecting accuracy while preserving what works. Documenting this learning makes every future implementation smarter. This is how organizations get better over time!\n\n<div class='implementation-tip'><h4>🔄 Assessment Actions:</h4>• Create 'kill criteria' for what's not acceptable<br>• Act immediately on critical issues<br>• Document lessons for next cycle<br>• Share learnings organization-wide<br>• Adjust quickly, celebrate learning</div>",
-                incorrect: "⚠️ Ignoring accuracy issues or throwing money at problems isn't assessment - it's avoidance. Real assessment means adjusting based on results, even if it means admitting AI isn't the answer for everything."
-            },
-            5: {
-                correct: "🎯 You've got it! The Super You isn't about becoming a tech wizard - it's about consistent improvement through COMPAS cycles. Each iteration makes you slightly better at identifying real problems, choosing appropriate solutions, and leading thoughtful change. That compounds into transformation!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Each COMPAS cycle = 1% improvement<br>• Focus on frameworks, not technical expertise<br>• Problem-first, solution-second thinking<br>• Build on each cycle's learnings<br>• Lead with wisdom, not wizardry</div>",
-                incorrect: "🤔 Super You isn't about technical expertise or eliminating all human work. It's about getting consistently better at navigating challenges through repeated COMPAS cycles. Think compound interest for leadership skills!"
+            nonprofit: {
+                name: "Nonprofit Scenario",
+                completionTitle: "You've Mastered Organizational AI Navigation!",
+                insightsTitle: "💼 Your AI Leadership Wisdom:",
+                scenarios: [
+                    // Context
+                    {
+                        title: "Context: Discovering Your AI Reality",
+                        icon: "🔍",
+                        description: `
+                            <h3>💼 Monica's Monday Morning Meltdown</h3>
+                            <p>You're Monica, running a 25-person arts nonprofit. It's Monday morning, and you're drowning in spreadsheets. Again. Your grant report (due Friday) requires data from 5 different spreadsheets that don't talk to each other. You've already spent 6 hours on it.</p>
+                            <p>At the board meeting last week, three different board members asked about your "AI strategy." One forwarded an article about nonprofits using AI to "transform operations." Another mentioned their company saved millions with AI.</p>
+                            <p>Meanwhile, you discovered your communications coordinator is using ChatGPT to write donor emails, your program manager is experimenting with some AI scheduling tool, and your development director is terrified AI will replace her.</p>
+                            <p><strong>The pressure is real:</strong> Everyone's talking AI, but what's actually happening in your organization?</p>
+                        `,
+                        callout: `🔍 Like moths hiding in the pantry, AI tools are already breeding in the corners of your organization... but is that good or bad?`,
+                        question: "Context: How do you understand your organization's AI reality?",
+                        choices: [
+                            { id: "A", text: "Send a stern email about unauthorized AI use and data security risks" },
+                            { id: "B", text: "Create an anonymous survey to discover how staff are using AI and what problems they're trying to solve" },
+                            { id: "C", text: "Research what similar nonprofits are doing with AI and copy their approach" },
+                            { id: "D", text: "Hire an AI consultant to tell you what you need" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect approach! Just like investigating where moths are actually hiding, you need to understand your reality before making decisions. An anonymous survey will reveal both the creative solutions staff have found AND the problems they're trying to solve. You might discover brilliant innovations or risky practices - but at least you'll know!\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Ask what repetitive tasks waste time<br>• Discover current AI experiments (good and bad)<br>• Map biggest time drains<br>• Promise no punishment for honesty<br>• Focus on problems, not solutions</div>",
+                            incorrect: "🤔 That's jumping to solutions (or panic) before understanding the situation! You need to know what's actually happening before you can make good decisions. Try the survey approach to discover your reality."
+                        }
+                    },
+                    // Objective
+                    {
+                        title: "Objective: The Real Problem Emerges",
+                        icon: "🎯",
+                        description: `
+                            <h3>🎯 From 'AI Strategy' to Actual Problems</h3>
+                            <p>Your anonymous survey revealed fascinating insights:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>3 staff using ChatGPT for writing (mostly successfully)</li>
+                                <li>Grant reporting takes 20+ hours monthly due to manual data compilation</li>
+                                <li>Event registration involves copying data between 4 different systems</li>
+                                <li>Staff spend 40% of time on repetitive data entry</li>
+                                <li>Board members expect "AI transformation" but can't define it</li>
+                            </ul>
+                            <p>In your exhausted state, you're tempted to announce: "We're implementing AI across all operations!" It sounds impressive and would satisfy the board.</p>
+                            <p><strong>But wait:</strong> What problem are you actually trying to solve?</p>
+                        `,
+                        callout: `🔥 "We need AI" is just like "I need a flamethrower" - a solution looking for a problem.`,
+                        question: "Objective: What's the REAL problem to solve?",
+                        choices: [
+                            { id: "A", text: "Implement AI across all departments to become a cutting-edge nonprofit" },
+                            { id: "B", text: "Reduce grant reporting time from 20 hours to 2 hours monthly, freeing time for donor relationships" },
+                            { id: "C", text: "Create an AI policy to control what tools staff can use" },
+                            { id: "D", text: "Train all staff in AI to prepare for the future" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Brilliant! You've avoided the 'flamethrower trap' of implementing AI everywhere. Your objective is specific, measurable, and directly tied to pain: reduce grant reporting from 20 hours to 2 hours. That's 18 hours monthly for actual mission work! This is how great objectives work - they solve real problems with measurable outcomes.\n\n<div class='implementation-tip'><h4>🎯 Setting Real Objectives:</h4>• Pick ONE specific pain point<br>• Make it measurable (20 hrs → 2 hrs)<br>• Connect to mission impact<br>• Resist 'transform everything' pressure<br>• Focus on time freed for important work</div>",
+                            incorrect: "🔥 That's solutionizing! You're prescribing AI before defining what problem it solves. Focus on a specific, measurable pain point - like those 20 hours wasted on grant reports."
+                        }
+                    },
+                    // Method
+                    {
+                        title: "Method: Designing Your Approach",
+                        icon: "📋",
+                        description: `
+                            <h3>📋 From Chaos to Systematic Solution</h3>
+                            <p>Great objective! Now you need a method to reduce grant reporting from 20 to 2 hours. Your current process involves:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Rebecca manually copying program data from 3 spreadsheets</li>
+                                <li>David re-entering financial data that already exists in QuickBooks</li>
+                                <li>You spending hours formatting and checking for errors</li>
+                                <li>Everyone using different date formats and naming conventions</li>
+                            </ul>
+                            <p>The board expects an "AI solution," but you're learning that jumping straight to AI might be like using a flamethrower on moths - overkill that creates new problems.</p>
+                            <p><strong>Time for a systematic approach</strong> that actually solves the problem.</p>
+                        `,
+                        callout: `🌿 Like choosing bay leaves over flamethrowers, sometimes the best method isn't the flashiest one.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Map current process, identify repetitive steps, test simple fixes first (formulas, connections), use AI only where it adds value" },
+                            { id: "B", text: "Buy an AI-powered grant management system and require everyone to use it" },
+                            { id: "C", text: "Have ChatGPT write all your grant reports from now on" },
+                            { id: "D", text: "Hire a data analyst to handle all reporting" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Perfect systematic thinking! By mapping the current process first, you'll likely discover that simple solutions (Excel formulas, basic integrations) can eliminate 80% of the work. AI might help with the remaining 20%, but only after you've fixed the basics. This is exactly how to approach any tech challenge - understand, simplify, then enhance.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Always map current process first<br>• Look for simple fixes (formulas, templates)<br>• Test with actual users<br>• Add complexity only where needed<br>• Keep humans in the loop</div>",
+                            incorrect: "🤔 That's jumping to complex solutions! Start by understanding what you have, then test simple fixes. You might not even need AI for most of it."
+                        }
+                    },
+                    // Performance
+                    {
+                        title: "Performance: The Plot Twist",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Simple Beats Complex</h3>
+                            <p>Two weeks into implementation, something surprising happened. As you mapped the process with Rebecca and David, you discovered:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>60% of time was spent re-entering data that already existed elsewhere</li>
+                                <li>A simple VLOOKUP formula automated half of Rebecca's work</li>
+                                <li>Connecting QuickBooks to Excel eliminated David's manual entry</li>
+                                <li>Standardized templates prevented formatting issues</li>
+                                <li>Only the narrative sections might benefit from AI assistance</li>
+                            </ul>
+                            <p>Grant reports now take 4 hours instead of 20. No AI required (yet)!</p>
+                            <p><strong>The awkward realization:</strong> The board expects an "AI success story," but you've mostly used Excel formulas.</p>
+                        `,
+                        callout: `💡 Like discovering that airtight containers beat fancy moth traps - sometimes simple solutions are the real winners.`,
+                        question: "Performance: How do you handle this non-AI success?",
+                        choices: [
+                            { id: "A", text: "Force AI into the process to meet board expectations" },
+                            { id: "B", text: "Celebrate the time savings, explain what worked, and note AI can help with remaining tasks" },
+                            { id: "C", text: "Feel like you failed because you didn't use enough AI" },
+                            { id: "D", text: "Pretend the Excel formulas are AI to impress the board" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect leadership! You solved the actual problem and saved 16 hours monthly - that's SUCCESS! By being honest about what worked (and what didn't need AI), you build trust and credibility. Plus, you can still explore AI for narrative writing. This is exactly how to handle technology - results over hype.\n\n<div class='implementation-tip'><h4>💡 Performance Communication:</h4>• Lead with results (16 hours saved!)<br>• Explain what actually worked<br>• Don't apologize for simple solutions<br>• Position AI as 'next phase' if needed<br>• Focus on mission impact of time saved</div>",
+                            incorrect: "🤔 Don't let 'AI strategy' pressure override actual success! You saved 16 hours monthly - celebrate that! Being honest about what worked builds more trust than forcing unnecessary tech."
+                        }
+                    },
+                    // Assessment
+                    {
+                        title: "Assessment: The Three-Month Reality Check",
+                        icon: "🔄",
+                        description: `
+                            <h3>🔄 Measuring Real Impact</h3>
+                            <p>Three months later, you're presenting to the board. The results:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Grant reporting: 20 hrs → 4 hrs monthly ✅</li>
+                                <li>Rebecca used saved time to cultivate 5 new donor relationships</li>
+                                <li>David implemented similar fixes for budget reports (saved 10 hrs/month)</li>
+                                <li>Staff asking "What else can we fix?" instead of "What AI should we buy?"</li>
+                            </ul>
+                            <p>But then Rebecca mentions: "The ChatGPT tool I use for donor emails sometimes generates weird phrases about our Latino community programs. I have to really watch it."</p>
+                            <p><strong>Assessment moment:</strong> How do you handle this risk while maintaining momentum?</p>
+                        `,
+                        callout: `🔍 Real assessment means celebrating wins AND addressing risks quickly - especially when they affect your community.`,
+                        question: "Assessment: How do you address the AI bias concern?",
+                        choices: [
+                            { id: "A", text: "Ban all AI use immediately to avoid any risks" },
+                            { id: "B", text: "Create guidelines for AI use in community communications, require human review, and share learnings" },
+                            { id: "C", text: "Ignore it - Rebecca catches the errors anyway" },
+                            { id: "D", text: "Buy a more expensive AI tool that promises no bias" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Excellent balanced approach! By creating guidelines and requiring human review, you protect your community relationships while keeping the benefits of AI assistance. Sharing these learnings helps everyone use AI more responsibly. This is mature assessment - address risks without throwing away benefits.\n\n<div class='implementation-tip'><h4>🔄 Assessment Best Practices:</h4>• Regular check-ins on what's working<br>• Quick action on risks (especially bias)<br>• Create guidelines, not bans<br>• Keep humans in the loop for sensitive content<br>• Share learnings across teams</div>",
+                            incorrect: "🤔 That's either ignoring real risk or overreacting! Good assessment means addressing problems while preserving benefits. Guidelines and human review can manage the risk while keeping the efficiency gains."
+                        }
+                    },
+                    // Super You
+                    {
+                        title: "Super You: The Compound Effect",
+                        icon: "⭐",
+                        description: `
+                            <h3>⭐ From Panic to Systematic Leadership</h3>
+                            <p>One year later, you've applied this approach to multiple challenges:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Event registration:</strong> Simple automation saved 15 hrs/month</li>
+                                <li><strong>Donor communications:</strong> AI drafts + human review improved quality</li>
+                                <li><strong>Program evaluation:</strong> Better data connections revealed impact stories</li>
+                                <li><strong>Board reports:</strong> Automated dashboards ended fire drills</li>
+                            </ul>
+                            <p>Your team now approaches new challenges by asking "What's the real problem?" instead of "What AI tool do we need?" The board sees you as a thoughtful tech leader who gets results. Other nonprofits ask for your advice.</p>
+                            <p><strong>The transformation:</strong> You've become 1% better with each challenge. It compounds remarkably.</p>
+                        `,
+                        callout: `⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving." - One problem at a time!`,
+                        question: "Super You: What made you an effective AI leader?",
+                        choices: [
+                            { id: "A", text: "Learning to identify real problems before jumping to AI solutions, then improving with each cycle" },
+                            { id: "B", text: "Becoming an AI technical expert who can code" },
+                            { id: "C", text: "Implementing AI in every department" },
+                            { id: "D", text: "Having the most advanced tech stack in the nonprofit sector" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 That's it exactly! The Super You isn't about becoming an AI expert - it's about systematic problem-solving that gets better with each iteration. By focusing on real problems, trying simple solutions first, and learning from each experience, you've developed judgment that applies to any technology challenge. This compounds into remarkable leadership!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Problem-first thinking<br>• Simple before complex<br>• Learn from each cycle<br>• Build on small wins<br>• Share your learnings<br>• Compound improvement over time</div>",
+                            incorrect: "🤔 Technical expertise isn't the superpower - it's the systematic approach to problem-solving that gets better each time. Think about the compound effect of good judgment!"
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Context Over Assumptions", text: "Understanding your actual AI landscape (shadow AI and all) beats making decisions based on board pressure." },
+                    { title: "Problems Over Solutions", text: "'We need AI' isn't an objective. 'Save 18 hours on grant reporting' is." },
+                    { title: "Simple First", text: "Excel formulas and basic integrations often solve 80% of the problem before AI is needed." },
+                    { title: "Honest Success", text: "Celebrating non-AI solutions that work builds more trust than forcing unnecessary technology." },
+                    { title: "Quick Risk Response", text: "Address bias and risks immediately while preserving benefits - guidelines beat bans." },
+                    { title: "Compound Leadership", text: "Each problem solved systematically makes you better at solving the next one. It adds up fast." }
+                ]
             }
         };
+
+        let correctAnswers = {};
+        let feedbackMessages = {};
+
+        function selectScenario(type) {
+            currentScenario = type;
+            document.getElementById('scenarioSelection').classList.add('hidden');
+            document.getElementById('gameContent').classList.add('active');
+            
+            // Initialize scenario data
+            loadScenarioContent();
+            updateProgress();
+        }
+
+        function loadScenarioContent() {
+            const scenarioData = scenarios[currentScenario];
+            const container = document.getElementById('scenarioContent');
+            container.innerHTML = '';
+            
+            // Create all scenario cards
+            scenarioData.scenarios.forEach((scenario, index) => {
+                const card = document.createElement('div');
+                card.className = 'scenario-card';
+                card.id = `scenario-${index}`;
+                if (index === 0) card.classList.add('active');
+                
+                const calloutHtml = scenario.callout ? 
+                    `<div class="moth-callout">${scenario.callout}</div>` : '';
+                
+                card.innerHTML = `
+                    <div class="scenario-title">
+                        <span class="scenario-icon-small">${scenario.icon}</span>
+                        ${scenario.title}
+                    </div>
+                    <div class="scenario-description">
+                        ${scenario.description}
+                    </div>
+                    ${calloutHtml}
+                    <div class="compas-section">
+                        <div class="compas-header">
+                            <span class="compas-icon">${scenario.icon}</span>
+                            ${scenario.question}
+                        </div>
+                        <div class="choice-grid">
+                            ${scenario.choices.map(choice => `
+                                <div class="choice-button" data-choice="${choice.id}">
+                                    <strong>${choice.id})</strong> ${choice.text}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="feedback" id="feedback-${index}"></div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+                
+                // Set correct answer and feedback for this step
+                correctAnswers[index] = scenario.correct;
+                feedbackMessages[index] = scenario.feedback;
+            });
+            
+            // Add click handlers
+            document.querySelectorAll('.choice-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const choice = this.getAttribute('data-choice');
+                    const scenario = this.closest('.scenario-card').id.split('-')[1];
+                    selectChoice(parseInt(scenario), choice);
+                });
+            });
+            
+            // Update completion content
+            const insights = scenarioData.insights;
+            document.getElementById('completionMessage').textContent = scenarioData.completionTitle;
+            document.getElementById('insightsTitle').textContent = scenarioData.insightsTitle;
+            
+            const insightsContent = document.getElementById('insightsContent');
+            insightsContent.innerHTML = insights.map(insight => `
+                <div class="insight-item">
+                    <strong>${insight.title}:</strong> ${insight.text}
+                </div>
+            `).join('');
+        }
 
         function selectChoice(step, choice) {
             // Remove previous selections
@@ -882,7 +1115,7 @@
                 // Show completion
                 document.getElementById(`scenario-${currentStep}`).classList.remove('active');
                 document.getElementById('completion').classList.add('active');
-                document.querySelector('.navigation').style.display = 'none';
+                document.getElementById('navigation').style.display = 'none';
                 updateProgress();
             }
         }
@@ -909,43 +1142,23 @@
         function resetGame() {
             currentStep = 0;
             selectedChoices = {};
+            currentScenario = null;
             
-            // Hide completion and show first scenario
+            // Hide completion and game content
             document.getElementById('completion').classList.remove('active');
-            document.querySelectorAll('.scenario-card').forEach((card, index) => {
-                card.classList.remove('active');
-                if (index === 0) card.classList.add('active');
-            });
+            document.getElementById('gameContent').classList.remove('active');
             
-            // Reset all selections and feedback
-            document.querySelectorAll('.choice-button').forEach(btn => {
-                btn.classList.remove('selected', 'correct', 'incorrect');
-            });
+            // Show scenario selection
+            document.getElementById('scenarioSelection').classList.remove('hidden');
             
-            document.querySelectorAll('.feedback').forEach(feedback => {
-                feedback.style.display = 'none';
-            });
+            // Clear scenario content
+            document.getElementById('scenarioContent').innerHTML = '';
             
             // Reset navigation
-            document.querySelector('.navigation').style.display = 'flex';
+            document.getElementById('navigation').style.display = 'flex';
             document.getElementById('prevBtn').disabled = true;
             document.getElementById('nextBtn').disabled = true;
-            
-            updateProgress();
         }
-
-        // Add click handlers for choices
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.choice-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const choice = this.getAttribute('data-choice');
-                    const scenario = this.closest('.scenario-card').id.split('-')[1];
-                    selectChoice(parseInt(scenario), choice);
-                });
-            });
-            
-            updateProgress();
-        });
     </script>
 </body>
 </html>
