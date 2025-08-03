@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPAS AI Learning Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a90a4 0%, #75c3d4 50%, #8bd3e6 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #f5a623;
+        }
+
+        .header h1 {
+            color: #2c5aa0;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e8f4f8;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a90a4, #75c3d4);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator.active {
+            color: #2c5aa0;
+            font-weight: bold;
+        }
+
+        .step-indicator.completed {
+            color: #4a90a4;
+        }
+
+        .step-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #e8f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+            border: 2px solid #e8f4f8;
+        }
+
+        .step-indicator.active .step-icon {
+            background: #2c5aa0;
+            color: white;
+            border-color: #2c5aa0;
+        }
+
+        .step-indicator.completed .step-icon {
+            background: #4a90a4;
+            color: white;
+            border-color: #4a90a4;
+        }
+
+        .scenario-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+            border-left: 6px solid #f5a623;
+        }
+
+        .scenario-card.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scenario-title {
+            color: #2c5aa0;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .scenario-icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+
+        .scenario-description {
+            background: #f8fbfd;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #4a90a4;
+            line-height: 1.6;
+        }
+
+        .scenario-description h3 {
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .compas-section {
+            margin: 25px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fb 100%);
+            border-radius: 12px;
+            border: 2px solid #75c3d4;
+        }
+
+        .compas-header {
+            font-size: 1.3em;
+            color: #2c5aa0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .compas-icon {
+            margin-right: 12px;
+            font-size: 1.3em;
+        }
+
+        .choice-grid {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .choice-button {
+            padding: 18px;
+            background: white;
+            border: 2px solid #e8f4f8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .choice-button:hover {
+            border-color: #4a90a4;
+            background: #f8fbfd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 164, 0.2);
+        }
+
+        .choice-button.selected {
+            border-color: #2c5aa0;
+            background: #e8f4f8;
+        }
+
+        .choice-button.correct {
+            border-color: #4a90a4;
+            background: #e8f4f8;
+            box-shadow: 0 4px 12px rgba(74, 144, 164, 0.3);
+        }
+
+        .choice-button.incorrect {
+            border-color: #e67e22;
+            background: #fef4f0;
+        }
+
+        .feedback {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .feedback.success {
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fb 100%);
+            border: 2px solid #4a90a4;
+            color: #2c5aa0;
+        }
+
+        .feedback.error {
+            background: #fef4f0;
+            border: 2px solid #e67e22;
+            color: #d35400;
+        }
+
+        .implementation-tip {
+            background: rgba(74, 144, 164, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #f5a623;
+        }
+
+        .implementation-tip h4 {
+            color: #2c5aa0;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-button.primary {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .nav-button.primary:hover {
+            background: #1e3f73;
+            transform: translateY(-2px);
+        }
+
+        .nav-button.secondary {
+            background: #e8f4f8;
+            color: #4a90a4;
+            border: 2px solid #4a90a4;
+        }
+
+        .nav-button.secondary:hover {
+            background: #4a90a4;
+            color: white;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, #4a90a4, #75c3d4);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            display: none;
+            border-top: 6px solid #f5a623;
+        }
+
+        .completion-card.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .completion-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .badge {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 25px auto;
+            font-size: 3.5em;
+            border: 4px solid #f5a623;
+        }
+
+        .insights-list {
+            text-align: left;
+            margin: 25px 0;
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .insight-item {
+            margin: 15px 0;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .insight-item:last-child {
+            border-bottom: none;
+        }
+
+        .moth-callout {
+            background: #fff9e6;
+            border-left: 4px solid #f5a623;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .step-indicators {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .step-indicator {
+                font-size: 0.8em;
+            }
+            
+            .step-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <svg width="60" height="60" viewBox="0 0 60 60" style="margin-bottom: 15px;" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer compass ring -->
+                <circle cx="30" cy="30" r="28" fill="none" stroke="#2c5aa0" stroke-width="2"/>
+                <circle cx="30" cy="30" r="24" fill="none" stroke="#4a90a4" stroke-width="1"/>
+                
+                <!-- Compass rose background -->
+                <circle cx="30" cy="30" r="20" fill="#75c3d4" opacity="0.3"/>
+                
+                <!-- Main compass points (N, S, E, W) -->
+                <g transform="translate(30,30)">
+                    <!-- North -->
+                    <path d="M0,-18 L3,-12 L0,-8 L-3,-12 Z" fill="#2c5aa0"/>
+                    <!-- South -->
+                    <path d="M0,18 L3,12 L0,8 L-3,12 Z" fill="#4a90a4"/>
+                    <!-- East -->
+                    <path d="M18,0 L12,3 L8,0 L12,-3 Z" fill="#4a90a4"/>
+                    <!-- West -->
+                    <path d="M-18,0 L-12,3 L-8,0 L-12,-3 Z" fill="#4a90a4"/>
+                    
+                    <!-- Secondary points -->
+                    <path d="M12,-12 L8,-8 L6,-10 L10,-14 Z" fill="#75c3d4"/>
+                    <path d="M12,12 L8,8 L6,10 L10,14 Z" fill="#75c3d4"/>
+                    <path d="M-12,12 L-8,8 L-6,10 L-10,14 Z" fill="#75c3d4"/>
+                    <path d="M-12,-12 L-8,-8 L-6,-10 L-10,-14 Z" fill="#75c3d4"/>
+                </g>
+                
+                <!-- Compass needle -->
+                <g transform="translate(30,30)">
+                    <path d="M0,-15 L4,-2 L0,0 L-4,-2 Z" fill="#f5a623"/>
+                    <path d="M0,15 L4,2 L0,0 L-4,2 Z" fill="#2c5aa0"/>
+                </g>
+                
+                <!-- Center point -->
+                <circle cx="30" cy="30" r="3" fill="#2c5aa0"/>
+                <circle cx="30" cy="30" r="1.5" fill="white"/>
+            </svg>
+            <h1>COMPAS AI Learning Journey</h1>
+            <p>Navigate the AI infestation without burning down your nonprofit</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="step-indicators">
+                <div class="step-indicator active" data-step="0">
+                    <div class="step-icon">🔍</div>
+                    <span>Context</span>
+                </div>
+                <div class="step-indicator" data-step="1">
+                    <div class="step-icon">🎯</div>
+                    <span>Objective</span>
+                </div>
+                <div class="step-indicator" data-step="2">
+                    <div class="step-icon">📋</div>
+                    <span>Method</span>
+                </div>
+                <div class="step-indicator" data-step="3">
+                    <div class="step-icon">📊</div>
+                    <span>Performance</span>
+                </div>
+                <div class="step-indicator" data-step="4">
+                    <div class="step-icon">🔄</div>
+                    <span>Assessment</span>
+                </div>
+                <div class="step-indicator" data-step="5">
+                    <div class="step-icon">⭐</div>
+                    <span>Super You</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario Cards -->
+        <div class="scenario-card active" id="scenario-0">
+            <div class="scenario-title">
+                <span class="scenario-icon">🔍</span>
+                Context: Discovering Your AI Infestation
+            </div>
+            <div class="scenario-description">
+                <h3>🦟 The Monday Morning Swarm</h3>
+                <p>Picture this: You stumble into your Monday morning all-staff Zoom call (camera off, because who has time to get 'Zoom ready' before 9 AM?), and you're hit with:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li>Your communications intern is using AI to generate images of supporters who don't exist</li>
+                    <li>Your development associate is asking AI to write a grant proposal about using AI to write grant proposals</li>
+                    <li>Your program manager is having what can only be described as a torrid affair with Zapier</li>
+                </ul>
+                <p><strong>Reality check:</strong> More than 4 out of 5 nonprofit staff are already using AI. But how many are using it safely and effectively?</p>
+            </div>
+
+            <div class="moth-callout">
+                🦋 Like pantry moths hiding in your Bob's Red Mill oatmeal, AI tools are already breeding in the corners of your organization...
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">🔍</span>
+                    Context: How do you discover the full extent of your "Shadow AI" situation?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> Send out a threatening email about unauthorized AI use and data breaches
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> Create an anonymous survey to map out how staff are using AI (officially and unofficially) and what problems they're trying to solve
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> Buy an enterprise AI solution to standardize everything immediately
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> Ignore it and hope the problem sorts itself out
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-0"></div>
+            </div>
+        </div>
+
+        <div class="scenario-card" id="scenario-1">
+            <div class="scenario-title">
+                <span class="scenario-icon">🎯</span>
+                Objective: Define the ACTUAL Problem (No Flamethrowers!)
+            </div>
+            <div class="scenario-description">
+                <h3>🔥 Avoiding the Flamethrower Approach</h3>
+                <p>Good job gathering context! Your anonymous survey revealed:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li>23 different AI tools in use across 15 staff members</li>
+                    <li>Monthly reports taking 3 days to compile manually</li>
+                    <li>Donor acknowledgments backed up by 2 weeks</li>
+                    <li>Staff spending 40% of time on repetitive data entry</li>
+                </ul>
+                <p><strong>The temptation:</strong> Your board wants you to "implement an AI strategy" (whatever that means). But remember - when dealing with pantry moths, a flamethrower is NOT the solution!</p>
+            </div>
+
+            <div class="moth-callout">
+                🔥 "Dad, why do you need a flamethrower?" Sometimes the most obvious solution creates more problems than it solves...
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">🎯</span>
+                    Objective: What's the REAL problem you need to solve?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> "We need to become an AI-powered nonprofit to stay competitive"
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> "We need to implement AI across all departments immediately"
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> "We need to reduce the 3 days spent on monthly reports to 3 hours, freeing staff to focus on donor relationships"
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> "We need to ban all unauthorized AI use until we have policies"
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-1"></div>
+            </div>
+        </div>
+
+        <div class="scenario-card" id="scenario-2">
+            <div class="scenario-title">
+                <span class="scenario-icon">📋</span>
+                Method: Your Three-Pronged Attack Plan
+            </div>
+            <div class="scenario-description">
+                <h3>🗺️ Crafting Your Non-Flamethrower Approach</h3>
+                <p>Smart objective! Now you need a method that won't burn down your nonprofit. Your monthly reporting process involves:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li>5 different spreadsheets that don't talk to each other</li>
+                    <li>Manual data entry from 3 systems</li>
+                    <li>Sarah (Finance) who knows the secret formulas</li>
+                    <li>Marcus (Programs) who "has his own way" of tracking outcomes</li>
+                </ul>
+                <p><strong>Remember:</strong> Like dealing with moths, you need a systematic approach - not a panic response!</p>
+            </div>
+
+            <div class="moth-callout">
+                🌿 Just as bay leaves and pheromone traps beat flamethrowers for moths, thoughtful methods beat rushing to implement AI everywhere...
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">📋</span>
+                    Method: What's your systematic approach to the reporting problem?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> Map the current process, identify repetitive steps, test simple automations (AI or not), run parallel for a month with Sarah and Marcus
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> Buy the most advanced AI reporting tool and mandate everyone use it starting Monday
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> Have IT implement a solution and train staff later
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> Let Sarah keep doing it her way but give her ChatGPT access
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-2"></div>
+            </div>
+        </div>
+
+        <div class="scenario-card" id="scenario-3">
+            <div class="scenario-title">
+                <span class="scenario-icon">📊</span>
+                Performance: The Plot Twist Discovery
+            </div>
+            <div class="scenario-description">
+                <h3>💡 When Simple Solutions Emerge</h3>
+                <p>Two weeks into your method implementation, something interesting happened:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li>You discovered 60% of the reporting time was spent re-entering data that already existed</li>
+                    <li>A simple Excel formula (no AI needed!) automated half the work</li>
+                    <li>Basic Zapier connections eliminated another 30%</li>
+                    <li>Only 20% actually benefited from AI assistance</li>
+                </ul>
+                <p><strong>The revelation:</strong> Sometimes exploring AI solutions reveals that simpler fixes can achieve most of your objectives!</p>
+            </div>
+
+            <div class="moth-callout">
+                💡 Like discovering that freezing grains kills moth larvae (who knew?), sometimes the best solution isn't the fanciest one...
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">📊</span>
+                    Performance: How do you move forward with this discovery?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> Abandon the project since it's not "AI enough" for the board
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> Implement the simple solutions first, use AI only where it adds real value, and celebrate the time savings regardless of the technology used
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> Force AI into more parts of the process to justify the "AI initiative"
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> Start over with a fully AI-based approach
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-3"></div>
+            </div>
+        </div>
+
+        <div class="scenario-card" id="scenario-4">
+            <div class="scenario-title">
+                <span class="scenario-icon">🔄</span>
+                Assessment: Keep Checking, Keep Improving
+            </div>
+            <div class="scenario-description">
+                <h3>📏 Measuring Your Moth-Fighting Success</h3>
+                <p>After 60 days, it's time to assess. Your results:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li>Monthly reports now take 4 hours instead of 3 days ✅</li>
+                    <li>Sarah loves the automated formulas</li>
+                    <li>Marcus discovered the AI tool suggests incorrect categorizations for 15% of program outcomes</li>
+                    <li>Staff are asking to apply this approach to other painful processes</li>
+                </ul>
+                <p><strong>New challenge:</strong> The AI categorization errors could affect your grant reporting accuracy. What now?</p>
+            </div>
+
+            <div class="moth-callout">
+                🔍 Like checking moth traps weekly, continuous assessment reveals what's working and what needs adjustment...
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">🔄</span>
+                    Assessment: How do you handle the categorization issue?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> Remove AI from outcome categorization, add human review for accuracy, document this as a learning for future AI implementations
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> Keep using the AI and manually fix errors as they appear
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> Buy a more expensive AI tool that promises better accuracy
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> Ignore the errors - 85% accuracy is good enough
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-4"></div>
+            </div>
+        </div>
+
+        <div class="scenario-card" id="scenario-5">
+            <div class="scenario-title">
+                <span class="scenario-icon">⭐</span>
+                Super You: The Continuous COMPAS Navigator
+            </div>
+            <div class="scenario-description">
+                <h3>🚀 Your Transformation Through Iteration</h3>
+                <p>Six months later, you've been through the COMPAS cycle three times:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li><strong>Cycle 1:</strong> Monthly reporting (saved 20 hours/month)</li>
+                    <li><strong>Cycle 2:</strong> Donor acknowledgments (reduced backlog to 48 hours)</li>
+                    <li><strong>Cycle 3:</strong> Volunteer scheduling (50% fewer emails)</li>
+                </ul>
+                <p>Each time, you discovered different solutions - some AI, some not. Your staff now come to you with problems, not prescribed tech solutions. The board sees you as the thoughtful tech leader who gets results.</p>
+                <p><strong>The magic:</strong> You've become 1% better with each iteration. Over months, that compounds into dramatic improvement.</p>
+            </div>
+
+            <div class="moth-callout">
+                ⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving." - One COMPAS cycle at a time!
+            </div>
+
+            <div class="compas-section">
+                <div class="compas-header">
+                    <span class="compas-icon">⭐</span>
+                    Super You: What makes you a true COMPAS navigator?
+                </div>
+                <div class="choice-grid">
+                    <div class="choice-button" data-choice="A">
+                        <strong>A)</strong> You approach each new challenge with COMPAS, focusing on real problems rather than trendy solutions, and get better with each iteration
+                    </div>
+                    <div class="choice-button" data-choice="B">
+                        <strong>B)</strong> You've become an AI expert who can code and implement any solution
+                    </div>
+                    <div class="choice-button" data-choice="C">
+                        <strong>C)</strong> You've successfully implemented AI in every department
+                    </div>
+                    <div class="choice-button" data-choice="D">
+                        <strong>D)</strong> You've eliminated all manual processes in your organization
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-5"></div>
+            </div>
+        </div>
+
+        <!-- Completion Card -->
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 You're a COMPAS Navigator!</div>
+            <div class="badge">🧭</div>
+            <h2>You've Mastered the Art of Not Burning Down Your Nonprofit!</h2>
+            
+            <div class="insights-list">
+                <h3>🦋 Your Moth-Fighting Wisdom:</h3>
+                <div class="insight-item">
+                    <strong>Context Over Panic:</strong> Like discovering moths in your pantry, understanding the full situation prevents flamethrower solutions.
+                </div>
+                <div class="insight-item">
+                    <strong>Real Problems Over Buzzwords:</strong> "We need AI" is not an objective. "Save 20 hours monthly on reports" is.
+                </div>
+                <div class="insight-item">
+                    <strong>Systematic Methods Win:</strong> Bay leaves and pheromone traps beat flamethrowers. Simple formulas might beat AI.
+                </div>
+                <div class="insight-item">
+                    <strong>Progress Over Perfection:</strong> Celebrating all improvements, whether AI-powered or not, keeps momentum going.
+                </div>
+                <div class="insight-item">
+                    <strong>Continuous Assessment:</strong> Like checking moth traps, regular evaluation prevents small issues from becoming infestations.
+                </div>
+                <div class="insight-item">
+                    <strong>Compound Improvement:</strong> Each COMPAS cycle makes you 1% better. Over time, you become dramatically more effective.
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p style="font-size: 1.1em; margin-bottom: 20px;">Remember: Technology is almost NEVER the problem. The problem is approaching it without COMPAS!</p>
+                <button class="nav-button primary" onclick="resetGame()">Navigate Another Challenge</button>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button secondary" id="prevBtn" onclick="previousStep()" disabled>← Previous</button>
+            <button class="nav-button primary" id="nextBtn" onclick="nextStep()" disabled>Next Step →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        let selectedChoices = {};
+        let correctAnswers = {
+            0: 'B', // Context: Anonymous survey to discover Shadow AI
+            1: 'C', // Objective: Specific, measurable goal (not buzzwords)
+            2: 'A', // Method: Systematic approach with all stakeholders
+            3: 'B', // Performance: Implement simple solutions first
+            4: 'A', // Assessment: Remove AI where it doesn't work, document learnings
+            5: 'A'  // Super You: Continuous improvement through COMPAS cycles
+        };
+
+        let feedbackMessages = {
+            0: {
+                correct: "🎯 Excellent! Just like discovering where moths are actually hiding (not where you think they are), anonymous surveys reveal the true 'Shadow AI' situation. You'll discover both hidden brilliance and hidden risks - crucial context before making any decisions.\n\n<div class='implementation-tip'><h4>🛠️ Real Context Gathering:</h4>• Ask 'What repetitive tasks eat your time?'<br>• Include 'What AI tools are you already trying?'<br>• Promise amnesty for honest responses<br>• Map time drains AND current experiments</div>",
+                incorrect: "🤔 Remember, panicking about AI is like buying a flamethrower for moths - it might seem decisive but creates bigger problems. Context means understanding what's actually happening, not controlling or ignoring it. Try the survey approach!"
+            },
+            1: {
+                correct: "🎯 Perfect! You avoided the flamethrower trap! This objective is specific, measurable, and solves a real pain point. Unlike vague 'AI transformation' goals, you can actually track success and show concrete value. Plus, freed time goes to donor relationships, not just efficiency metrics.\n\n<div class='implementation-tip'><h4>🎯 SMART Objectives for AI:</h4>• Start with ONE painful, repetitive process<br>• Quantify current time/resource drain<br>• Set specific reduction targets<br>• Define where saved time will go<br>• 60-90 day timeframes for quick wins</div>",
+                incorrect: "🔥 Careful! That's flamethrower thinking - impressive sounding but likely to cause more problems. Remember: 'We need AI' isn't an objective, it's a solution looking for a problem. Focus on specific, measurable pain points."
+            },
+            2: {
+                correct: "🎯 Brilliant method! Like using bay leaves instead of burning down your pantry, this systematic approach reduces risk and builds confidence. Including Sarah and Marcus prevents the #1 failure: solutions that work in theory but fail with real humans. Plus, you might discover non-AI solutions!\n\n<div class='implementation-tip'><h4>📋 Method Best Practices:</h4>• Always map current process first<br>• Test simple fixes before complex ones<br>• Include ALL affected staff<br>• Run parallel systems initially<br>• Plan for both AI and non-AI solutions</div>",
+                incorrect: "🔥 That's flamethrower thinking! Forcing new tools without understanding current processes or including the people who do the work daily is a recipe for disaster. Remember: systematic beats dramatic every time."
+            },
+            3: {
+                correct: "🎯 Outstanding! You've discovered the hidden truth: not every problem needs AI! By implementing simple solutions first and using AI only where it truly adds value, you're getting results AND building trust. This is exactly what smart implementation looks like.\n\n<div class='implementation-tip'><h4>💡 Performance Insights:</h4>• Celebrate ALL improvements, regardless of tech<br>• Simple solutions often solve 80% of problems<br>• AI shines for the complex 20%<br>• Results matter more than buzzwords<br>• Document what worked (AI or not) for future cycles</div>",
+                incorrect: "⚠️ Don't let 'AI strategy' pressure override good judgment! If simple solutions work, use them. Forcing AI where it's not needed wastes resources and erodes trust. Focus on results, not technology theater."
+            },
+            4: {
+                correct: "🎯 Perfect assessment thinking! Like checking moth traps and adjusting your approach, you're protecting accuracy while preserving what works. Documenting this learning makes every future implementation smarter. This is how organizations get better over time!\n\n<div class='implementation-tip'><h4>🔄 Assessment Actions:</h4>• Create 'kill criteria' for what's not acceptable<br>• Act immediately on critical issues<br>• Document lessons for next cycle<br>• Share learnings organization-wide<br>• Adjust quickly, celebrate learning</div>",
+                incorrect: "⚠️ Ignoring accuracy issues or throwing money at problems isn't assessment - it's avoidance. Real assessment means adjusting based on results, even if it means admitting AI isn't the answer for everything."
+            },
+            5: {
+                correct: "🎯 You've got it! The Super You isn't about becoming a tech wizard - it's about consistent improvement through COMPAS cycles. Each iteration makes you slightly better at identifying real problems, choosing appropriate solutions, and leading thoughtful change. That compounds into transformation!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Each COMPAS cycle = 1% improvement<br>• Focus on frameworks, not technical expertise<br>• Problem-first, solution-second thinking<br>• Build on each cycle's learnings<br>• Lead with wisdom, not wizardry</div>",
+                incorrect: "🤔 Super You isn't about technical expertise or eliminating all human work. It's about getting consistently better at navigating challenges through repeated COMPAS cycles. Think compound interest for leadership skills!"
+            }
+        };
+
+        function selectChoice(step, choice) {
+            // Remove previous selections
+            const choices = document.querySelectorAll(`#scenario-${step} .choice-button`);
+            choices.forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'incorrect');
+            });
+
+            // Mark selected choice
+            const selectedBtn = document.querySelector(`#scenario-${step} .choice-button[data-choice="${choice}"]`);
+            selectedBtn.classList.add('selected');
+
+            // Store selection
+            selectedChoices[step] = choice;
+
+            // Show feedback
+            const feedback = document.getElementById(`feedback-${step}`);
+            const isCorrect = choice === correctAnswers[step];
+            
+            if (isCorrect) {
+                selectedBtn.classList.add('correct');
+                feedback.className = 'feedback success';
+                feedback.innerHTML = `✅ ${feedbackMessages[step].correct}`;
+            } else {
+                selectedBtn.classList.add('incorrect');
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `❌ ${feedbackMessages[step].incorrect}`;
+            }
+            
+            feedback.style.display = 'block';
+
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep + 1) / 6) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (index === currentStep) {
+                    indicator.classList.add('active');
+                }
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < 5) {
+                // Hide current scenario
+                document.getElementById(`scenario-${currentStep}`).classList.remove('active');
+                
+                currentStep++;
+                
+                // Show next scenario
+                document.getElementById(`scenario-${currentStep}`).classList.add('active');
+                
+                updateProgress();
+                
+                // Reset navigation
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('prevBtn').disabled = false;
+            } else {
+                // Show completion
+                document.getElementById(`scenario-${currentStep}`).classList.remove('active');
+                document.getElementById('completion').classList.add('active');
+                document.querySelector('.navigation').style.display = 'none';
+                updateProgress();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                document.getElementById(`scenario-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`scenario-${currentStep}`).classList.add('active');
+                
+                updateProgress();
+                
+                // Update navigation
+                if (selectedChoices[currentStep]) {
+                    document.getElementById('nextBtn').disabled = false;
+                }
+                
+                if (currentStep === 0) {
+                    document.getElementById('prevBtn').disabled = true;
+                }
+            }
+        }
+
+        function resetGame() {
+            currentStep = 0;
+            selectedChoices = {};
+            
+            // Hide completion and show first scenario
+            document.getElementById('completion').classList.remove('active');
+            document.querySelectorAll('.scenario-card').forEach((card, index) => {
+                card.classList.remove('active');
+                if (index === 0) card.classList.add('active');
+            });
+            
+            // Reset all selections and feedback
+            document.querySelectorAll('.choice-button').forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            document.querySelectorAll('.feedback').forEach(feedback => {
+                feedback.style.display = 'none';
+            });
+            
+            // Reset navigation
+            document.querySelector('.navigation').style.display = 'flex';
+            document.getElementById('prevBtn').disabled = true;
+            document.getElementById('nextBtn').disabled = true;
+            
+            updateProgress();
+        }
+
+        // Add click handlers for choices
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.choice-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const choice = this.getAttribute('data-choice');
+                    const scenario = this.closest('.scenario-card').id.split('-')[1];
+                    selectChoice(parseInt(scenario), choice);
+                });
+            });
+            
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
