@@ -442,6 +442,436 @@
             color: #666;
         }
 
+        /* Enhanced Summary Page Styles */
+        .summary-card {
+            background: linear-gradient(135deg, #4a90a4, #75c3d4);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            display: none;
+            border-top: 6px solid #f5a623;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: glow-pulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .summary-header {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .summary-title {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .summary-badge {
+            width: 140px;
+            height: 140px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            font-size: 4em;
+            border: 4px solid #f5a623;
+            position: relative;
+            animation: float-rotate 6s ease-in-out infinite;
+        }
+
+        @keyframes float-rotate {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(5deg); }
+            66% { transform: translateY(5px) rotate(-3deg); }
+        }
+
+        .certification-ribbon {
+            background: linear-gradient(45deg, #f5a623, #e6931f);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 15px auto;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(245, 166, 35, 0.3);
+            animation: pulse-ribbon 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ribbon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .summary-subtitle {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .accomplishments-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .accomplishments-title {
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            color: #f5a623;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .accomplishment-cards {
+            display: grid;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .accomplishment-card {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accomplishment-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .accomplishment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .accomplishment-card:hover::before {
+            left: 100%;
+        }
+
+        .accomplishment-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            display: inline-block;
+            animation: float-icon 4s ease-in-out infinite;
+            vertical-align: top;
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .accomplishment-content {
+            display: inline-block;
+            width: calc(100% - 60px);
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .summary-footer {
+            position: relative;
+            z-index: 2;
+            margin-top: 35px;
+        }
+
+        .summary-message {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .restart-button {
+            background: linear-gradient(45deg, #f5a623, #e6931f);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .restart-button:hover {
+            background: linear-gradient(45deg, #e6931f, #d1841c);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 166, 35, 0.4);
+        }
+
+        .restart-button::before {
+            content: '🚀';
+            font-size: 1.2em;
+        }
+
+        /* Enhanced Summary Page Styles */
+        .summary-enhanced {
+            background: linear-gradient(135deg, #2c5aa0 0%, #4a90a4 50%, #75c3d4 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-enhanced::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: celebrateGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes celebrateGlow {
+            from { transform: rotate(0deg) scale(1); opacity: 0.3; }
+            to { transform: rotate(5deg) scale(1.1); opacity: 0.1; }
+        }
+
+        .summary-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .summary-badge-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .achievement-ribbon {
+            background: linear-gradient(45deg, #f5a623, #f39c12);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(245, 166, 35, 0.4);
+            animation: ribbonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ribbonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .summary-subtitle {
+            font-size: 1.4em;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .compas-accomplishments {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .accomplishments-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .accomplishments-icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+            animation: trophyBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes trophyBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .accomplishments-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+        }
+
+        .accomplishment-card {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #f5a623;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accomplishment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .accomplishment-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .accomplishment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .compas-step-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            display: inline-block;
+            animation: stepIconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes stepIconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .accomplishment-text {
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .summary-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .wisdom-quote {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .quote-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+            animation: quotePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes quotePulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .wisdom-quote p {
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .summary-actions {
+            margin-top: 20px;
+        }
+
+        .nav-button.celebration {
+            background: linear-gradient(45deg, #f5a623, #f39c12);
+            border: none;
+            font-size: 1.1em;
+            padding: 16px 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button.celebration:hover {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 166, 35, 0.6);
+        }
+
+        .button-icon {
+            font-size: 1.2em;
+            animation: rocketPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes rocketPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         @media (max-width: 768px) {
             .game-container {
                 padding: 10px;
@@ -467,6 +897,41 @@
 
             .scenario-options {
                 grid-template-columns: 1fr;
+            }
+
+            .summary-title {
+                font-size: 2.2em;
+            }
+
+            .summary-badge {
+                width: 120px;
+                height: 120px;
+                font-size: 3.2em;
+            }
+
+            .accomplishments-container {
+                padding: 20px;
+            }
+
+            .accomplishment-card {
+                padding: 15px;
+            }
+
+            .restart-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .accomplishment-card {
+                padding: 15px;
+            }
+
+            .wisdom-quote {
+                padding: 20px;
+            }
+
+            .wisdom-quote p {
+                font-size: 1.1em;
             }
         }
     </style>
@@ -585,20 +1050,23 @@
                 </div>
             </div>
 
-            <!-- Summary Card -->
-            <div class="completion-card" id="summary">
-                <div class="completion-title">🎓 Your COMPAS Journey Complete!</div>
-                <div class="badge">🧭</div>
-                <h2 id="summaryMessage"></h2>
+            <!-- Enhanced Summary Card -->
+            <div class="summary-card" id="summary">
+                <div class="summary-header">
+                    <div class="summary-title">🎓 Your COMPAS Mastery</div>
+                    <div class="summary-badge">🧭</div>
+                    <div class="certification-ribbon">CERTIFIED NAVIGATOR</div>
+                    <h2 class="summary-subtitle" id="summaryMessage"></h2>
+                </div>
                 
-                <div class="insights-list">
-                    <h3>📋 What You Accomplished:</h3>
-                    <div id="summaryContent"></div>
+                <div class="accomplishments-container">
+                    <h3 class="accomplishments-title">✨ Your COMPAS Accomplishments</h3>
+                    <div class="accomplishment-cards" id="summaryContent"></div>
                 </div>
 
-                <div style="margin-top: 30px;">
-                    <p style="font-size: 1.1em; margin-bottom: 20px;">The COMPAS framework works for any challenge - from kitchen crises to organizational transformation.</p>
-                    <button class="nav-button primary" onclick="resetGame()">Start Again</button>
+                <div class="summary-footer">
+                    <p class="summary-message">The COMPAS framework works for any challenge - from kitchen crises to organizational transformation.</p>
+                    <button class="restart-button" onclick="resetGame()">Start Another Journey</button>
                 </div>
             </div>
 
@@ -643,7 +1111,7 @@
                         callout: `🦋 Before you can solve any problem, you need to understand the full context. Where are the moths coming from? What are they after? Why do they have a particular fetish for Bob's Red Mill products?`,
                         question: "Context: What's your first step in understanding this moth situation?",
                         choices: [
-                            { id: "A", text: "Google 'industrial strength moth genocide equipment' and order everything with next-day delivery" },
+                            { id: "A", text: "Google 'industrial strength moth elimination equipment' and order everything with next-day delivery" },
                             { id: "B", text: "Investigate where they're actually coming from, what they're eating, and how long this has been going on" },
                             { id: "C", text: "Call an exterminator immediately - this is beyond your expertise" },
                             { id: "D", text: "Move out. The moths have won. This is their house now." }
@@ -1184,11 +1652,20 @@
             document.getElementById('summaryMessage').textContent = scenarioData.summaryTitle;
             
             const summaryContent = document.getElementById('summaryContent');
-            summaryContent.innerHTML = scenarioData.summaryContent.map(item => `
-                <div class="insight-item">
-                    ${item}
-                </div>
-            `).join('');
+            summaryContent.innerHTML = scenarioData.summaryContent.map(item => {
+                // Extract the icon and step name from the item
+                const iconMatch = item.match(/^(🔍|🎯|📋|📊|🔄|⭐)/);
+                const icon = iconMatch ? iconMatch[1] : '';
+                
+                return `
+                    <div class="accomplishment-card">
+                        <div class="accomplishment-text">
+                            <span class="compas-step-icon">${icon}</span>
+                            ${item.replace(/^(🔍|🎯|📋|📊|🔄|⭐)\s*/, '')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function resetGame() {
