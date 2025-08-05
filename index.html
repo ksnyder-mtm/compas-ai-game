@@ -996,6 +996,39 @@
             </div>
         </div>
 
+        <!-- Additional Nonprofit Scenarios Selection Screen -->
+        <div class="scenario-selection hidden" id="additionalScenarios">
+            <h2 class="selection-title">Continue Your COMPAS Learning Journey</h2>
+            <p style="text-align: center; color: white; font-size: 1.1em; margin-bottom: 30px;">
+                Great work! Now practice COMPAS with more nonprofit AI challenges:
+            </p>
+            <div class="scenario-options">
+                <div class="scenario-option" onclick="selectScenario('volunteer')">
+                    <div class="scenario-icon">🤝</div>
+                    <h3>Volunteer Management Crisis</h3>
+                    <p>Save your volunteer coordinator from burnout by applying COMPAS to transform volunteer management with smart automation.</p>
+                </div>
+                <div class="scenario-option" onclick="selectScenario('donor')">
+                    <div class="scenario-icon">💝</div>
+                    <h3>Donor Communications Challenge</h3>
+                    <p>Transform your donor retention from 45% to 65% using COMPAS to create meaningful, AI-enhanced relationships at scale.</p>
+                </div>
+                <div class="scenario-option" onclick="selectScenario('program')">
+                    <div class="scenario-icon">📈</div>
+                    <h3>Program Impact Measurement</h3>
+                    <p>Convert overwhelming evaluation requirements into actionable program insights using COMPAS and AI-assisted analysis.</p>
+                </div>
+                <div class="scenario-option" onclick="selectScenario('outreach')">
+                    <div class="scenario-icon">🌍</div>
+                    <h3>Community Outreach Enhancement</h3>
+                    <p>Bridge cultural gaps and expand community reach using COMPAS to guide AI-enhanced multilingual engagement.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="nav-button secondary" onclick="exitToHome()">← Exit to Home</button>
+            </div>
+        </div>
+
         <!-- Game Content (hidden until scenario selected) -->
         <div class="game-content" id="gameContent">
             <div class="progress-container">
@@ -1066,7 +1099,9 @@
 
                 <div class="summary-footer">
                     <p class="summary-message">The COMPAS framework works for any challenge - from kitchen crises to organizational transformation.</p>
-                    <button class="restart-button" onclick="resetGame()">Start Another Journey</button>
+                    <div id="summaryActions">
+                        <!-- Actions will be populated by JavaScript based on current scenario -->
+                    </div>
                 </div>
             </div>
 
@@ -1111,12 +1146,12 @@
                         callout: `🦋 Before you can solve any problem, you need to understand the full context. Where are the moths coming from? What are they after? Why do they have a particular fetish for Bob's Red Mill products?`,
                         question: "Context: What's your first step in understanding this moth situation?",
                         choices: [
-                            { id: "A", text: "Google 'industrial strength moth elimination equipment' and order everything with next-day delivery" },
-                            { id: "B", text: "Investigate where they're actually coming from, what they're eating, and how long this has been going on" },
-                            { id: "C", text: "Call an exterminator immediately - this is beyond your expertise" },
-                            { id: "D", text: "Move out. The moths have won. This is their house now." }
+                            { id: "A", text: "Move out. The moths have won. This is their house now." },
+                            { id: "B", text: "Google 'industrial strength moth elimination equipment' and order everything with next-day delivery" },
+                            { id: "C", text: "Investigate where they're actually coming from, what they're eating, and how long this has been going on" },
+                            { id: "D", text: "Call an exterminator immediately - this is beyond your expertise" }
                         ],
-                        correct: "B",
+                        correct: "C",
                         feedback: {
                             correct: "🎯 Brilliant! Just like in any crisis, understanding the actual situation beats panic ordering flamethrowers from Amazon. You discover: moths are coming from one contaminated bag, they've been there for weeks, and they particularly love grains stored in paper bags. This context changes everything!\n\n<div class='implementation-tip'><h4>🛠️ Context Gathering:</h4>• Check all food storage areas systematically<br>• Look for larvae, webbing, and adult moths<br>• Note which products are affected<br>• Understand the timeline and spread</div>",
                             incorrect: "🤔 Classic panic response! But without understanding the context (where they're coming from, what they're eating), you're just flailing around. You might order expensive solutions that don't address the actual problem. Start with investigation!"
@@ -1136,12 +1171,12 @@
                         callout: `🔥 "Solutionizing" - jumping to dramatic solutions before defining the actual problem. We all do it!`,
                         question: "Objective: What's the REAL problem you need to solve?",
                         choices: [
-                            { id: "A", text: "Achieve total moth annihilation using maximum firepower" },
-                            { id: "B", text: "Prevent future infestations while safely removing current moths and protecting remaining food" },
-                            { id: "C", text: "Install an automated moth detection and elimination system" },
-                            { id: "D", text: "Create the most moth-proof pantry known to humanity" }
+                            { id: "A", text: "Prevent future infestations while safely removing current moths and protecting remaining food" },
+                            { id: "B", text: "Create the most moth-proof pantry known to humanity" },
+                            { id: "C", text: "Achieve total moth annihilation using maximum firepower" },
+                            { id: "D", text: "Install an automated moth detection and elimination system" }
                         ],
-                        correct: "B",
+                        correct: "A",
                         feedback: {
                             correct: "🎯 Perfect! You've avoided the flamethrower trap. Your objective is specific and achievable: remove current moths, save uncontaminated food, and prevent future infestations. No kitchen burning required! This is exactly how to think about objectives - solve the actual problem, not the dramatic version in your head.\n\n<div class='implementation-tip'><h4>🎯 Setting Real Objectives:</h4>• Focus on the root problem, not symptoms<br>• Make it specific and achievable<br>• Avoid over-engineering the solution<br>• Consider collateral damage of dramatic approaches</div>",
                             incorrect: "🔥 That's flamethrower thinking! You're focused on dramatic solutions rather than the actual problem. Remember: the objective is to have a moth-free pantry with edible food, not to wage war or build a fortress."
@@ -1160,12 +1195,12 @@
                         callout: `🌿 Like bay leaves instead of flamethrowers - systematic methods beat dramatic gestures every time.`,
                         question: "Method: What's your systematic approach?",
                         choices: [
-                            { id: "A", text: "Freeze all grains for 72 hours, deploy bay leaves as deterrent, install pheromone traps, transfer everything to airtight containers" },
-                            { id: "B", text: "Throw away everything and start fresh with all new food" },
+                            { id: "A", text: "Set up a 24/7 moth surveillance system with automatic alerts" },
+                            { id: "B", text: "Freeze all grains for 72 hours, deploy bay leaves as deterrent, install pheromone traps, transfer everything to airtight containers" },
                             { id: "C", text: "Spray the entire pantry with the strongest pesticide available" },
-                            { id: "D", text: "Set up a 24/7 moth surveillance system with automatic alerts" }
+                            { id: "D", text: "Throw away everything and start fresh with all new food" }
                         ],
-                        correct: "A",
+                        correct: "B",
                         feedback: {
                             correct: "🎯 Brilliant systematic thinking! Freezing kills larvae (addressing the root), bay leaves repel new moths (prevention), pheromone traps catch stragglers (monitoring), and airtight containers prevent future infestations (long-term solution). This is exactly how method works - multiple complementary approaches that address different aspects of the problem.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Address immediate problem (freezing)<br>• Prevent recurrence (bay leaves, containers)<br>• Monitor progress (traps)<br>• Use multiple complementary approaches<br>• Avoid single-point-of-failure solutions</div>",
                             incorrect: "🤔 That's either wasteful, dangerous, or over-engineered! A good method uses multiple simple, proven approaches that work together. Think systematic, not dramatic."
@@ -1184,12 +1219,12 @@
                         callout: `💡 Sometimes the best solution isn't the most complex one. It's the one that actually works.`,
                         question: "Performance: How do you handle this discovery?",
                         choices: [
-                            { id: "A", text: "Feel foolish for overcomplicating things and remove all the fancy solutions" },
-                            { id: "B", text: "Celebrate that you found what works, keep the simple solutions, and view the traps as insurance" },
+                            { id: "A", text: "Start a blog about your moth-fighting journey to help others" },
+                            { id: "B", text: "Feel foolish for overcomplicating things and remove all the fancy solutions" },
                             { id: "C", text: "Double down on complex solutions to justify the effort" },
-                            { id: "D", text: "Start a blog about your moth-fighting journey to help others" }
+                            { id: "D", text: "Celebrate that you found what works, keep the simple solutions, and view the traps as insurance" }
                         ],
-                        correct: "B",
+                        correct: "D",
                         feedback: {
                             correct: "🎯 Perfect mindset! You discovered that simple solutions (airtight containers) solve 90% of the problem - that's a win! The traps serve as early warning systems, and you've learned valuable lessons. This is exactly how performance works: implement, discover what actually works, and adjust without ego.\n\n<div class='implementation-tip'><h4>💡 Performance Insights:</h4>• Celebrate when simple solutions work<br>• Don't feel obligated to use complex tools<br>• View 'overengineering' as learning<br>• Focus on what actually solved the problem<br>• Keep useful elements as safeguards</div>",
                             incorrect: "🤔 Don't let perfect be the enemy of good! Finding out that simple solutions work best IS the success. Learn from it and move forward."
@@ -1214,12 +1249,12 @@
                         callout: `🔍 Assessment isn't just about checking if something worked - it's about learning and sharing what you've discovered.`,
                         question: "Assessment: How do you apply your learning?",
                         choices: [
-                            { id: "A", text: "Share your simple solution (airtight containers) and save them from the flamethrower phase" },
-                            { id: "B", text: "Keep quiet - they need to learn the hard way like you did" },
-                            { id: "C", text: "Recommend they buy all the complex solutions you tried" },
-                            { id: "D", text: "Suggest they just move houses like you initially considered" }
+                            { id: "A", text: "Suggest they just move houses like you initially considered" },
+                            { id: "B", text: "Recommend they buy all the complex solutions you tried" },
+                            { id: "C", text: "Share your simple solution (airtight containers) and save them from the flamethrower phase" },
+                            { id: "D", text: "Keep quiet - they need to learn the hard way like you did" }
                         ],
-                        correct: "A",
+                        correct: "C",
                         feedback: {
                             correct: "🎯 Excellent! Sharing your simple, effective solution helps others skip the panic phase and jump straight to what works. This is peak assessment - not just measuring success, but using your learning to help others. You've turned your moth crisis into community wisdom!\n\n<div class='implementation-tip'><h4>🔄 Assessment Actions:</h4>• Regularly check if solutions still work<br>• Document what was actually effective<br>• Share learnings to help others<br>• Skip the drama, share the solution<br>• Build on what you've learned</div>",
                             incorrect: "🤔 Why let others suffer through the flamethrower phase? Good assessment means sharing what actually worked, helping others avoid your mistakes."
@@ -1244,12 +1279,12 @@
                         callout: `⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving."`,
                         question: "Super You: What made the real difference?",
                         choices: [
-                            { id: "A", text: "Learning to pause, investigate, and find simple solutions before reaching for flamethrowers" },
-                            { id: "B", text: "Becoming an expert in moth biology and pest control" },
-                            { id: "C", text: "Having the most organized pantry in the neighborhood" },
-                            { id: "D", text: "Never having to deal with moths again" }
+                            { id: "A", text: "Never having to deal with moths again" },
+                            { id: "B", text: "Having the most organized pantry in the neighborhood" },
+                            { id: "C", text: "Becoming an expert in moth biology and pest control" },
+                            { id: "D", text: "Learning to pause, investigate, and find simple solutions before reaching for flamethrowers" }
                         ],
-                        correct: "A",
+                        correct: "D",
                         feedback: {
                             correct: "🎯 That's it! The Super You isn't about becoming a moth expert - it's about developing a systematic approach to ANY problem. Each time you pause before panicking, investigate before solutionizing, and try simple fixes before complex ones, you get better. It compounds into wisdom that applies everywhere!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Pause before panicking<br>• Context before solutions<br>• Simple before complex<br>• Learn from each experience<br>• Apply lessons broadly<br>• Compound improvement over time</div>",
                             incorrect: "🤔 The real superpower isn't domain expertise - it's the systematic approach you can apply to ANY problem. Think bigger!"
@@ -1293,12 +1328,12 @@
                         callout: `🔍 AI tools are already breeding in the corners of your organization... but is that good or bad?`,
                         question: "Context: How do you understand your organization's AI reality?",
                         choices: [
-                            { id: "A", text: "Send a stern email about unauthorized AI use and data security risks" },
-                            { id: "B", text: "Create an anonymous survey to discover how staff are using AI and what problems they're trying to solve" },
-                            { id: "C", text: "Research what similar nonprofits are doing with AI and copy their approach" },
-                            { id: "D", text: "Hire an AI consultant to tell you what you need" }
+                            { id: "A", text: "Create an anonymous survey to discover how staff are using AI and what problems they're trying to solve" },
+                            { id: "B", text: "Hire an AI consultant to tell you what you need" },
+                            { id: "C", text: "Send a stern email about unauthorized AI use and data security risks" },
+                            { id: "D", text: "Research what similar nonprofits are doing with AI and copy their approach" }
                         ],
-                        correct: "B",
+                        correct: "A",
                         feedback: {
                             correct: "🎯 Perfect approach! You need to understand your reality before making decisions. An anonymous survey will reveal both the creative solutions staff have found AND the problems they're trying to solve. You might discover brilliant innovations or risky practices - but at least you'll know!\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Ask what repetitive tasks waste time<br>• Discover current AI experiments (good and bad)<br>• Map biggest time drains<br>• Promise no punishment for honesty<br>• Focus on problems, not solutions</div>",
                             incorrect: "🤔 That's jumping to solutions (or panic) before understanding the situation! You need to know what's actually happening before you can make good decisions. Try the survey approach to discover your reality."
@@ -1324,12 +1359,12 @@
                         callout: `🔥 "We need AI" is just like "I need a flamethrower" - a solution looking for a problem.`,
                         question: "Objective: What's the REAL problem to solve?",
                         choices: [
-                            { id: "A", text: "Implement AI across all departments to become a cutting-edge nonprofit" },
-                            { id: "B", text: "Reduce grant reporting time from 20 hours to 2 hours monthly, freeing time for donor relationships" },
-                            { id: "C", text: "Create an AI policy to control what tools staff can use" },
-                            { id: "D", text: "Train all staff in AI to prepare for the future" }
+                            { id: "A", text: "Train all staff in AI to prepare for the future" },
+                            { id: "B", text: "Create an AI policy to control what tools staff can use" },
+                            { id: "C", text: "Reduce grant reporting time from 20 hours to 2 hours monthly, freeing time for donor relationships" },
+                            { id: "D", text: "Implement AI across all departments to become a cutting-edge nonprofit" }
                         ],
-                        correct: "B",
+                        correct: "C",
                         feedback: {
                             correct: "🎯 Brilliant! You've avoided the 'flamethrower trap' of implementing AI everywhere. Your objective is specific, measurable, and directly tied to pain: reduce grant reporting from 20 hours to 2 hours. That's 18 hours monthly for actual mission work! This is how great objectives work - they solve real problems with measurable outcomes.\n\n<div class='implementation-tip'><h4>🎯 Setting Real Objectives:</h4>• Pick ONE specific pain point<br>• Make it measurable (20 hrs → 2 hrs)<br>• Connect to mission impact<br>• Resist 'transform everything' pressure<br>• Focus on time freed for important work</div>",
                             incorrect: "🔥 That's solutionizing! You're prescribing AI before defining what problem it solves. Focus on a specific, measurable pain point - like those 20 hours wasted on grant reports."
@@ -1354,12 +1389,12 @@
                         callout: `🌿 Sometimes the best method isn't the flashiest one.`,
                         question: "Method: What's your systematic approach?",
                         choices: [
-                            { id: "A", text: "Map current process, identify repetitive steps, test simple fixes first (formulas, connections), use AI only where it adds value" },
-                            { id: "B", text: "Buy an AI-powered grant management system and require everyone to use it" },
+                            { id: "A", text: "Hire a data analyst to handle all reporting" },
+                            { id: "B", text: "Map current process, identify repetitive steps, test simple fixes first (formulas, connections), use AI only where it adds value" },
                             { id: "C", text: "Have ChatGPT write all your grant reports from now on" },
-                            { id: "D", text: "Hire a data analyst to handle all reporting" }
+                            { id: "D", text: "Buy an AI-powered grant management system and require everyone to use it" }
                         ],
-                        correct: "A",
+                        correct: "B",
                         feedback: {
                             correct: "🎯 Perfect systematic thinking! By mapping the current process first, you'll likely discover that simple solutions (Excel formulas, basic integrations) can eliminate 80% of the work. AI might help with the remaining 20%, but only after you've fixed the basics. This is exactly how to approach any tech challenge - understand, simplify, then enhance.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Always map current process first<br>• Look for simple fixes (formulas, templates)<br>• Test with actual users<br>• Add complexity only where needed<br>• Keep humans in the loop</div>",
                             incorrect: "🤔 That's jumping to complex solutions! Start by understanding what you have, then test simple fixes. You might not even need AI for most of it."
@@ -1385,12 +1420,12 @@
                         callout: `💡 Sometimes simple solutions are the real winners.`,
                         question: "Performance: How do you handle this non-AI success?",
                         choices: [
-                            { id: "A", text: "Force AI into the process to meet board expectations" },
-                            { id: "B", text: "Celebrate the time savings, explain what worked, and note AI can help with remaining tasks" },
+                            { id: "A", text: "Pretend the Excel formulas are AI to impress the board" },
+                            { id: "B", text: "Force AI into the process to meet board expectations" },
                             { id: "C", text: "Feel like you failed because you didn't use enough AI" },
-                            { id: "D", text: "Pretend the Excel formulas are AI to impress the board" }
+                            { id: "D", text: "Celebrate the time savings, explain what worked, and note AI can help with remaining tasks" }
                         ],
-                        correct: "B",
+                        correct: "D",
                         feedback: {
                             correct: "🎯 Perfect leadership! You solved the actual problem and saved 16 hours monthly - that's SUCCESS! By being honest about what worked (and what didn't need AI), you build trust and credibility. Plus, you can still explore AI for narrative writing. This is exactly how to handle technology - results over hype.\n\n<div class='implementation-tip'><h4>💡 Performance Communication:</h4>• Lead with results (16 hours saved!)<br>• Explain what actually worked<br>• Don't apologize for simple solutions<br>• Position AI as 'next phase' if needed<br>• Focus on mission impact of time saved</div>",
                             incorrect: "🤔 Don't let 'AI strategy' pressure override actual success! You saved 16 hours monthly - celebrate that! Being honest about what worked builds more trust than forcing unnecessary tech."
@@ -1415,12 +1450,12 @@
                         callout: `🔍 Real assessment means celebrating wins AND addressing risks quickly - especially when they affect your community.`,
                         question: "Assessment: How do you address the AI bias concern?",
                         choices: [
-                            { id: "A", text: "Ban all AI use immediately to avoid any risks" },
-                            { id: "B", text: "Create guidelines for AI use in community communications, require human review, and share learnings" },
-                            { id: "C", text: "Ignore it - Rebecca catches the errors anyway" },
-                            { id: "D", text: "Buy a more expensive AI tool that promises no bias" }
+                            { id: "A", text: "Buy a more expensive AI tool that promises no bias" },
+                            { id: "B", text: "Ban all AI use immediately to avoid any risks" },
+                            { id: "C", text: "Create guidelines for AI use in community communications, require human review, and share learnings" },
+                            { id: "D", text: "Ignore it - Rebecca catches the errors anyway" }
                         ],
-                        correct: "B",
+                        correct: "C",
                         feedback: {
                             correct: "🎯 Excellent balanced approach! By creating guidelines and requiring human review, you protect your community relationships while keeping the benefits of AI assistance. Sharing these learnings helps everyone use AI more responsibly. This is mature assessment - address risks without throwing away benefits.\n\n<div class='implementation-tip'><h4>🔄 Assessment Best Practices:</h4>• Regular check-ins on what's working<br>• Quick action on risks (especially bias)<br>• Create guidelines, not bans<br>• Keep humans in the loop for sensitive content<br>• Share learnings across teams</div>",
                             incorrect: "🤔 That's either ignoring real risk or overreacting! Good assessment means addressing problems while preserving benefits. Guidelines and human review can manage the risk while keeping the efficiency gains."
@@ -1445,12 +1480,12 @@
                         callout: `⭐ "The Super You is simply the version of you that never stops learning, adapting, and improving." - One problem at a time!`,
                         question: "Super You: What made you an effective AI leader?",
                         choices: [
-                            { id: "A", text: "Learning to identify real problems before jumping to AI solutions, then improving with each cycle" },
-                            { id: "B", text: "Becoming an AI technical expert who can code" },
-                            { id: "C", text: "Implementing AI in every department" },
-                            { id: "D", text: "Having the most advanced tech stack in the nonprofit sector" }
+                            { id: "A", text: "Having the most advanced tech stack in the nonprofit sector" },
+                            { id: "B", text: "Learning to identify real problems before jumping to AI solutions, then improving with each cycle" },
+                            { id: "C", text: "Becoming an AI technical expert who can code" },
+                            { id: "D", text: "Implementing AI in every department" }
                         ],
-                        correct: "A",
+                        correct: "B",
                         feedback: {
                             correct: "🎯 That's it exactly! The Super You isn't about becoming an AI expert - it's about systematic problem-solving that gets better with each iteration. By focusing on real problems, trying simple solutions first, and learning from each experience, you've developed judgment that applies to any technology challenge. This compounds into remarkable leadership!\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Problem-first thinking<br>• Simple before complex<br>• Learn from each cycle<br>• Build on small wins<br>• Share your learnings<br>• Compound improvement over time</div>",
                             incorrect: "🤔 Technical expertise isn't the superpower - it's the systematic approach to problem-solving that gets better each time. Think about the compound effect of good judgment!"
@@ -1465,6 +1500,794 @@
                     { title: "Quick Risk Response", text: "Address bias and risks immediately while preserving benefits - guidelines beat bans." },
                     { title: "Compound Leadership", text: "Each problem solved systematically makes you better at solving the next one. It adds up fast." }
                 ]
+            },
+            volunteer: {
+                name: "Volunteer Management Crisis",
+                completionTitle: "You've Mastered AI-Assisted Volunteer Coordination!",
+                insightsTitle: "🤝 Your Volunteer Management Wisdom:",
+                summaryTitle: "You've transformed volunteer management using COMPAS and AI!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Discovered actual volunteer coordination challenges through staff interviews",
+                    "🎯 <strong>Objective:</strong> Focused on reducing volunteer coordinator burnout (60+ hours/week to manageable)",
+                    "📋 <strong>Method:</strong> Implemented automated scheduling and communication before advanced AI features",
+                    "📊 <strong>Performance:</strong> Reduced coordinator time by 25 hours/week using smart scheduling and templates",
+                    "🔄 <strong>Assessment:</strong> Addressed volunteer satisfaction concerns while maintaining efficiency gains",
+                    "⭐ <strong>Super You:</strong> Became an expert at human-centered automation that enhances relationships"
+                ],
+                scenarios: [
+                    {
+                        title: "Context: The Volunteer Coordinator's Meltdown",
+                        icon: "🔍",
+                        description: `
+                            <h3>🤝 Sarah's 60-Hour Work Week</h3>
+                            <p>You're the Executive Director at a 15-person food bank. Your volunteer coordinator Sarah just submitted her resignation letter, citing burnout. She's been working 60+ hours a week managing 150 volunteers across multiple programs.</p>
+                            <p>Sarah's daily reality: 4 hours of scheduling calls, constant email exchanges about shift changes, manual tracking of volunteer hours, and creating individual thank-you messages. Meanwhile, volunteers complain about poor communication and scheduling conflicts.</p>
+                            <p>The board suggests "getting AI to manage volunteers automatically," but you're not even sure what the actual problems are beyond Sarah's exhaustion.</p>
+                            <p><strong>Crisis mode activated:</strong> How do you understand what's really happening with volunteer management?</p>
+                        `,
+                        callout: `🔍 Shadow volunteer management is happening everywhere - volunteers texting each other, using group chats, creating their own schedules. What's your real situation?`,
+                        question: "Context: How do you discover your volunteer management reality?",
+                        choices: [
+                            { id: "A", text: "Tell Sarah to delegate more and hire a part-time assistant" },
+                            { id: "B", text: "Buy a comprehensive volunteer management platform immediately to fix everything" },
+                            { id: "C", text: "Interview staff, volunteers, and Sarah to understand current processes and biggest pain points" },
+                            { id: "D", text: "Research what other food banks use for volunteer management software" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Perfect approach! Discovery revealed: volunteers prefer text notifications over emails, 70% of coordination time is spent on last-minute changes, volunteer skills aren't tracked so people get misassigned, and thank-you processes are completely manual. This context shows exactly where AI could help vs. where better processes are needed.\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Interview volunteers about communication preferences<br>• Track how time is actually spent<br>• Map all current tools and workarounds<br>• Identify what volunteers do vs. what they want to do<br>• Document manual processes taking excessive time</div>",
+                            incorrect: "🤔 You're jumping to solutions before understanding the problem! Without knowing why Sarah is burned out or what volunteers actually need, you might buy expensive tools that don't address the real issues."
+                        }
+                    },
+                    {
+                        title: "Objective: Define the Real Problem",
+                        icon: "🎯",
+                        description: `
+                            <h3>🎯 From 'AI Everything' to Actual Goals</h3>
+                            <p>Your interviews revealed the reality:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Sarah spends 25 hours/week on scheduling and rescheduling</li>
+                                <li>Volunteers want text updates, not email blasts</li>
+                                <li>45% of no-shows are due to poor communication about shifts</li>
+                                <li>Thank-you processes are heartfelt but completely manual</li>
+                                <li>Volunteer skills database is a spreadsheet Sarah updates manually</li>
+                            </ul>
+                            <p>Your board chair suggests: "Let's implement AI chatbots for all volunteer communications and automated scheduling for everything!" It sounds comprehensive and tech-forward.</p>
+                            <p><strong>But wait:</strong> What problem are you actually trying to solve?</p>
+                        `,
+                        callout: `🔥 "Automate everything with AI" is just like "use a flamethrower" - a big solution looking for the right problem.`,
+                        question: "Objective: What's the REAL problem to solve?",
+                        choices: [
+                            { id: "A", text: "Reduce Sarah's coordination time from 60 to 35 hours/week while improving volunteer satisfaction" },
+                            { id: "B", text: "Create the most advanced volunteer management system in the nonprofit sector" },
+                            { id: "C", text: "Deploy AI across all volunteer interactions to modernize the organization" },
+                            { id: "D", text: "Eliminate all manual volunteer management processes using automation" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Excellent! You've focused on the human impact: Sarah's burnout and volunteer experience. Your objective is specific (60→35 hours), measurable, and connects to both staff wellbeing and mission impact. This leaves room for AI where it helps and human touch where it matters most.\n\n<div class='implementation-tip'><h4>🎯 Setting Real Objectives:</h4>• Focus on specific time savings<br>• Connect to human wellbeing<br>• Include volunteer satisfaction metrics<br>• Allow for both tech and non-tech solutions<br>• Make it measurable and timebound</div>",
+                            incorrect: "🔥 That's solutionizing with AI! Focus on the specific human problem: Sarah's unsustainable hours and volunteer frustration. Technology should serve those goals, not become the goal itself."
+                        }
+                    },
+                    {
+                        title: "Method: Building Your Support System",
+                        icon: "📋",
+                        description: `
+                            <h3>📋 From Chaos to Systematic Support</h3>
+                            <p>Great objective! Now you need a method to cut Sarah's coordination time by 25 hours weekly. Your current volunteer process involves:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Sarah calling volunteers individually for scheduling</li>
+                                <li>Email chains for shift changes and updates</li>
+                                <li>Manual tracking of hours and skills in spreadsheets</li>
+                                <li>Personal thank-you notes written individually</li>
+                                <li>No-show management through frantic phone calls</li>
+                            </ul>
+                            <p>The board wants to see "AI implementation," but you're learning that jumping straight to advanced AI might miss simpler solutions that could solve 80% of the problem.</p>
+                            <p><strong>Time for a systematic approach</strong> that actually reduces Sarah's workload.</p>
+                        `,
+                        callout: `🌿 Start with simple automation, add AI intelligence where it actually helps.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Deploy an AI chatbot to handle all volunteer communications immediately" },
+                            { id: "B", text: "Implement text-based scheduling system, create email templates, pilot AI for thank-you personalization, test automated reminders" },
+                            { id: "C", text: "Hire more staff to handle the coordination workload" },
+                            { id: "D", text: "Create a volunteer mobile app with full AI assistant capabilities" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect systematic thinking! Text scheduling addresses volunteers' preferred communication, templates reduce manual writing time, AI helps with personalization (where it adds value), and automated reminders prevent no-shows. This method tackles different aspects of the problem with appropriate tools.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Start with communication preferences (texts)<br>• Use templates for common messages<br>• Add AI where personalization matters<br>• Automate routine reminders<br>• Test each component separately</div>",
+                            incorrect: "🤔 That's either over-engineering or avoiding technology entirely! Start with proven automation for routine tasks, then add AI intelligence where it genuinely improves the volunteer experience."
+                        }
+                    },
+                    {
+                        title: "Performance: The Unexpected Insight",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Human Touch Meets Smart Automation</h3>
+                            <p>One month into implementation, the results surprised everyone:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Text-based scheduling reduced phone time by 15 hours/week</li>
+                                <li>Email templates saved 8 hours/week of writing</li>
+                                <li>Automated reminders cut no-shows by 40%</li>
+                                <li>AI-personalized thank-you notes increased volunteer retention by 25%</li>
+                                <li>Sarah now works 40 hours/week instead of 60</li>
+                            </ul>
+                            <p>But here's the plot twist: The AI-generated thank-you notes work because they incorporate specific volunteer contributions from Sarah's notes, making them feel personal despite being automated.</p>
+                            <p><strong>The revelation:</strong> AI works best when it amplifies human insights, not replaces them.</p>
+                        `,
+                        callout: `💡 The magic happens when AI enhances human connection rather than replacing it.`,
+                        question: "Performance: How do you handle this success?",
+                        choices: [
+                            { id: "A", text: "Stop here - you've solved the problem" },
+                            { id: "B", text: "Replace all human interaction with AI to maximize efficiency" },
+                            { id: "C", text: "Celebrate the time savings, document what works, and keep refining the human-AI collaboration" },
+                            { id: "D", text: "Feel like you didn't use enough 'real AI' and add more complex features" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Perfect leadership approach! You've found the sweet spot where technology amplifies human capability. By documenting what works and continuing to refine, you're building sustainable systems that support both staff and volunteers. This is exactly how AI should work in nonprofits.\n\n<div class='implementation-tip'><h4>💡 Performance Optimization:</h4>• Document which AI applications work best<br>• Keep human oversight in sensitive communications<br>• Measure both efficiency and relationship quality<br>• Continuously refine based on feedback<br>• Build on successful human-AI collaboration</div>",
+                            incorrect: "🤔 Don't let technology perfection override human success! You've created a system that works for both staff and volunteers. Focus on sustaining and improving what's working."
+                        }
+                    },
+                    {
+                        title: "Assessment: The Six-Month Reality Check",
+                        icon: "🔄",
+                        description: `
+                            <h3>🔄 Measuring Sustainable Success</h3>
+                            <p>Six months later, you're reviewing the volunteer management transformation:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Sarah works 40 hours/week consistently ✅</li>
+                                <li>Volunteer satisfaction scores increased 30% ✅</li>
+                                <li>No-show rates decreased from 45% to 15% ✅</li>
+                                <li>Volunteer retention improved by 25% ✅</li>
+                                <li>Sarah has time for strategic volunteer engagement ✅</li>
+                            </ul>
+                            <p>But then several long-term volunteers mention: "We love the new system, but we miss the personal phone calls from Sarah. The text messages are efficient but feel impersonal sometimes."</p>
+                            <p><strong>Assessment moment:</strong> How do you balance efficiency gains with relationship maintenance?</p>
+                        `,
+                        callout: `🔍 Real assessment means listening to both efficiency metrics and relationship feedback.`,
+                        question: "Assessment: How do you address the personalization concern?",
+                        choices: [
+                            { id: "A", text: "Add more AI personalization to make texts feel more personal" },
+                            { id: "B", text: "Ignore the feedback - the metrics show the system works" },
+                            { id: "C", text: "Go back to individual phone calls to maintain personal relationships" },
+                            { id: "D", text: "Use saved time to have monthly one-on-one calls with long-term volunteers while keeping efficient systems" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Brilliant balance! By using the time saved from routine coordination for meaningful relationship building, you're creating the best of both worlds. This shows mature assessment - addressing feedback while preserving efficiency gains. You've created sustainable systems that support both operations and relationships.\n\n<div class='implementation-tip'><h4>🔄 Assessment Best Practices:</h4>• Listen to both metrics and relationship feedback<br>• Use efficiency gains to fund relationship time<br>• Balance automation with human connection<br>• Regular check-ins with key stakeholders<br>• Adjust systems based on user needs</div>",
+                            incorrect: "🤔 Don't throw away efficiency gains or ignore relationship needs! Use the time you've saved to invest in meaningful connections while keeping the systems that work."
+                        }
+                    },
+                    {
+                        title: "Super You: The Amplified Leader",
+                        icon: "⭐",
+                        description: `
+                            <h3>⭐ From Crisis Manager to Strategic Leader</h3>
+                            <p>One year later, you've applied this human-centered automation approach across multiple areas:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Donor communications:</strong> AI drafts, human personalization</li>
+                                <li><strong>Client intake:</strong> Automated scheduling, personal follow-up</li>
+                                <li><strong>Board reports:</strong> Data automation, strategic insights</li>
+                                <li><strong>Grant applications:</strong> Template generation, mission-focused customization</li>
+                            </ul>
+                            <p>Sarah is now your Volunteer Engagement Strategist, spending time on volunteer development and retention instead of scheduling chaos. Other nonprofits ask for your advice on "human-centered AI."</p>
+                            <p><strong>The transformation:</strong> You've become a leader who uses technology to amplify human connection, not replace it.</p>
+                        `,
+                        callout: `⭐ "Super You uses AI to become more human, not less human."`,
+                        question: "Super You: What made you an effective AI leader?",
+                        choices: [
+                            { id: "A", text: "Eliminating all manual processes through automation" },
+                            { id: "B", text: "Implementing the most advanced AI tools available" },
+                            { id: "C", text: "Learning to use AI to amplify human capabilities and relationships, not replace them" },
+                            { id: "D", text: "Becoming an expert in volunteer management software" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Exactly right! Your superpower is understanding that AI should amplify human connection and capability, not replace it. By consistently applying this principle, you've created systems that make everyone more effective while preserving what makes nonprofit work meaningful - the human relationships.\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• AI amplifies human capability<br>• Technology serves relationships<br>• Efficiency creates space for connection<br>• Systems support, don't replace judgment<br>• Continuous learning and adaptation<br>• Human-centered decision making</div>",
+                            incorrect: "🤔 Technical expertise isn't the superpower - it's the wisdom to use AI in service of human connection. That approach is what makes you an effective leader in the AI age."
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Context Reveals Shadow Systems", text: "Understanding how volunteers actually communicate prevents building systems they won't use." },
+                    { title: "Human Problems Need Human-Centered Objectives", text: "Reducing coordinator burnout is a better goal than 'implementing AI everywhere.'" },
+                    { title: "Start Simple, Add Intelligence", text: "Text scheduling and templates solved more problems than complex AI chatbots." },
+                    { title: "AI Amplifies Human Insight", text: "Personalized thank-you notes work because they include Sarah's knowledge of volunteer contributions." },
+                    { title: "Balance Efficiency and Relationships", text: "Use time saved from automation to invest in meaningful human connections." },
+                    { title: "Human-Centered AI Leadership", text: "The best AI implementations make people more effective at what humans do best." }
+                ]
+            },
+            donor: {
+                name: "Donor Communications Challenge",
+                completionTitle: "You've Mastered AI-Enhanced Donor Engagement!",
+                insightsTitle: "💝 Your Donor Relations Wisdom:",
+                summaryTitle: "You've transformed donor communications using COMPAS and AI!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Discovered donor communication gaps through segmentation analysis and feedback",
+                    "🎯 <strong>Objective:</strong> Focused on increasing donor retention from 45% to 65% through better engagement",
+                    "📋 <strong>Method:</strong> Implemented AI-assisted personalization while maintaining authentic storytelling",
+                    "📊 <strong>Performance:</strong> Achieved 23% retention increase using data-driven personalization and human oversight",
+                    "🔄 <strong>Assessment:</strong> Balanced efficiency gains with donor relationship quality through feedback systems",
+                    "⭐ <strong>Super You:</strong> Became an expert at scaling authentic relationships through thoughtful automation"
+                ],
+                scenarios: [
+                    {
+                        title: "Context: The Donor Relationship Crisis",
+                        icon: "🔍",
+                        description: `
+                            <h3>💝 Jennifer's Donor Retention Problem</h3>
+                            <p>You're the Development Director at a 20-person homeless services nonprofit. Your donor retention rate just hit an all-time low of 45% - meaning most donors give once and never again. Your fundraising is constantly chasing new donors instead of deepening relationships.</p>
+                            <p>Your reality: mass emails to 3,000 donors with generic content, thank-you letters that take weeks to send, no tracking of donor interests or preferences, and major donors receiving the same communications as $25 first-time givers.</p>
+                            <p>Your board suggests using AI to "personalize everything at scale," but you're overwhelmed by the options and worried about losing the authentic voice that drew donors to your mission in the first place.</p>
+                            <p><strong>Crisis point:</strong> How do you understand what donors actually want from you?</p>
+                        `,
+                        callout: `🔍 Donors are already forming impressions based on every interaction. What's your current reality telling them about your organization?`,
+                        question: "Context: How do you discover your donor communication reality?",
+                        choices: [
+                            { id: "A", text: "Hire a consultant to audit your donor communications strategy" },
+                            { id: "B", text: "Survey all donors about their communication preferences and satisfaction" },
+                            { id: "C", text: "Analyze current donor data, conduct exit interviews with lapsed donors, and review all communication touchpoints" },
+                            { id: "D", text: "Research what other nonprofits are doing with AI and donor communications" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Comprehensive discovery approach! Your analysis revealed: 78% of donors can't remember why they gave originally, exit interviews show donors feel ignored after their first gift, major donors receive the same mass emails as everyone else, and thank-you letters are generic and arrive 6 weeks late. This data shows exactly where personalization and timing could help.\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Segment donors by giving history and interests<br>• Track all communication touchpoints<br>• Interview both retained and lapsed donors<br>• Analyze response rates across different messages<br>• Document current processes and timelines</div>",
+                            incorrect: "🤔 While surveys and research help, you need deeper data about what's actually happening with your current donors. Exit interviews and touchpoint analysis reveal the real problems."
+                        }
+                    },
+                    {
+                        title: "Objective: Define Success in Relationships",
+                        icon: "🎯",
+                        description: `
+                            <h3>🎯 From Mass Communications to Meaningful Connections</h3>
+                            <p>Your discovery revealed the painful truth:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>First-time donors wait 6 weeks for acknowledgment</li>
+                                <li>Major donors ($500+) get the same emails as $25 donors</li>
+                                <li>No one tracks donor interests or program preferences</li>
+                                <li>Generic communications feel impersonal and robotic</li>
+                                <li>Donors can't connect their gifts to specific impact</li>
+                            </ul>
+                            <p>Your board chair says: "Let's use AI to send personalized emails to every donor every week with updates on everything we do!" It sounds like a way to solve the engagement problem through volume.</p>
+                            <p><strong>But hang on:</strong> What would success actually look like?</p>
+                        `,
+                        callout: `🔥 "Personalize everything with AI" can become spam just as easily as "send everything to everyone."`,
+                        question: "Objective: What's the REAL success you're trying to achieve?",
+                        choices: [
+                            { id: "A", text: "Increase donor retention from 45% to 65% by creating meaningful, timely connections between donors and impact" },
+                            { id: "B", text: "Reduce the time spent on donor communications by 50% through automation" },
+                            { id: "C", text: "Send AI-generated personalized content to every donor weekly" },
+                            { id: "D", text: "Implement the most sophisticated donor communications AI system available" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Perfect relationship-focused objective! You're measuring the outcome that matters - retention - which indicates donors feel connected and valued. By focusing on meaningful, timely connections to impact, you're setting up for quality over quantity communications that build lasting relationships.\n\n<div class='implementation-tip'><h4>🎯 Relationship Objectives:</h4>• Focus on retention as the key metric<br>• Connect donors to specific program impact<br>• Prioritize timely acknowledgment<br>• Segment by donor capacity and interests<br>• Measure relationship depth, not just frequency</div>",
+                            incorrect: "🔥 That's either overwhelming donors with volume or focusing on efficiency over relationships! Good donor relations are about quality connections that make donors feel valued and connected to impact."
+                        }
+                    },
+                    {
+                        title: "Method: Building Authentic Connections at Scale",
+                        icon: "📋",
+                        description: `
+                            <h3>📋 From Generic Blasts to Personal Connections</h3>
+                            <p>Excellent objective! Now you need a method to increase retention by creating meaningful donor connections. Your current process:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>One monthly newsletter sent to everyone</li>
+                                <li>Generic thank-you letters processed in batches</li>
+                                <li>No donor segmentation beyond gift amount</li>
+                                <li>Impact stories shared randomly without connection to donor interests</li>
+                                <li>Major donors treated exactly like small donors</li>
+                            </ul>
+                            <p>You want to use AI to help, but you're committed to maintaining your authentic voice and genuine gratitude. How do you scale personal connection without losing what makes it personal?</p>
+                            <p><strong>Time for a method</strong> that combines efficiency with authenticity.</p>
+                        `,
+                        callout: `🌿 The best donor communications feel personal even when they're efficient.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Continue manual processes but hire more development staff" },
+                            { id: "B", text: "Create a donor mobile app with AI chatbot for all interactions" },
+                            { id: "C", text: "Let AI write all donor communications automatically based on their giving history" },
+                            { id: "D", text: "Segment donors by interests, create AI-assisted personalized impact updates, automate timely thank-you delivery, reserve personal touches for major donors" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Excellent systematic approach! Segmentation ensures relevance, AI assists with personalization while maintaining your voice, automation handles timing (crucial for retention), and you preserve high-touch relationships where they matter most. This method scales authentic connection rather than replacing it.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Segment by giving history and program interests<br>• Use AI to personalize impact stories to interests<br>• Automate delivery timing, not content creation<br>• Maintain personal touch for major donor relationships<br>• Create templates that preserve authentic voice</div>",
+                            incorrect: "🤔 You need a balance between efficiency and authenticity. Pure automation loses the personal connection, but pure manual processes can't scale to improve retention rates."
+                        }
+                    },
+                    {
+                        title: "Performance: The Relationship Revelation",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Data Meets Heart</h3>
+                            <p>Three months into your new approach, the numbers tell an interesting story:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Thank-you letters now go out within 48 hours (vs. 6 weeks)</li>
+                                <li>Donors receive impact stories related to their program interests</li>
+                                <li>AI helps match donor interests to relevant program updates</li>
+                                <li>Response rates increased 40% on segmented communications</li>
+                                <li>Early retention indicators show 23% improvement</li>
+                            </ul>
+                            <p>But here's the surprise: Donors aren't just staying - they're upgrading their gifts and referring friends. The combination of timely acknowledgment and relevant impact stories makes them feel truly connected to your work.</p>
+                            <p><strong>The insight:</strong> AI helps you be more thoughtful, not less human.</p>
+                        `,
+                        callout: `💡 Technology amplifies thoughtfulness when applied correctly.`,
+                        question: "Performance: How do you build on this success?",
+                        choices: [
+                            { id: "A", text: "Stop here - the system is working well" },
+                            { id: "B", text: "Focus entirely on the metrics and optimize for highest response rates" },
+                            { id: "C", text: "Document what's working, gather donor feedback, and refine the balance of automation and personal touch" },
+                            { id: "D", text: "Add more AI automation to handle even more donor interactions" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Perfect approach to sustainable success! By documenting what works and gathering donor feedback, you're building a system that can improve while maintaining the relationship quality that's driving your results. This is how you build lasting donor relationships at scale.\n\n<div class='implementation-tip'><h4>💡 Performance Building:</h4>• Document successful AI-human collaboration patterns<br>• Gather donor feedback on communication quality<br>• Track both efficiency and relationship metrics<br>• Refine based on donor preferences<br>• Maintain the authenticity that drives results</div>",
+                            incorrect: "🤔 Don't lose sight of what's working! The success comes from the balance of efficiency and authenticity. Keep refining that balance rather than optimizing for just one element."
+                        }
+                    },
+                    {
+                        title: "Assessment: The Relationship Quality Check",
+                        icon: "🔄",
+                        description: `
+                            <h3>🔄 Measuring Connection, Not Just Conversion</h3>
+                            <p>Nine months later, your donor retention transformation results:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Retention rate increased from 45% to 68% ✅</li>
+                                <li>Average donor lifetime value up 35% ✅</li>
+                                <li>Donor referrals increased 50% ✅</li>
+                                <li>Time spent on routine communications reduced 60% ✅</li>
+                                <li>More time available for major donor cultivation ✅</li>
+                            </ul>
+                            <p>But in your donor feedback survey, several longtime supporters mention: "I love the relevant updates, but sometimes I miss the personal stories about your staff and the unexpected moments that made me fall in love with your organization."</p>
+                            <p><strong>Assessment question:</strong> How do you maintain efficiency while preserving organizational personality?</p>
+                        `,
+                        callout: `🔍 Great assessment balances efficiency metrics with relationship quality feedback.`,
+                        question: "Assessment: How do you address the personality feedback?",
+                        choices: [
+                            { id: "A", text: "The metrics show success - ignore the qualitative feedback" },
+                            { id: "B", text: "Use time saved from automation to create monthly 'behind-the-scenes' content that shares staff stories and unexpected moments" },
+                            { id: "C", text: "Go back to manual communications to restore personality" },
+                            { id: "D", text: "Train the AI to include more organizational personality in communications" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Brilliant solution! You're using the efficiency gains to invest in the relationship elements that donors value most. This shows mature assessment - addressing feedback while preserving the systems that work. You've created sustainable donor communications that are both efficient and deeply personal.\n\n<div class='implementation-tip'><h4>🔄 Assessment Excellence:</h4>• Use efficiency gains to fund relationship investments<br>• Listen to both quantitative and qualitative feedback<br>• Balance automation with organizational personality<br>• Create space for unexpected, authentic content<br>• Regularly check relationship health, not just metrics</div>",
+                            incorrect: "🤔 Don't abandon efficiency or ignore relationship feedback! Use the time you've gained to invest in the authentic storytelling that builds deep donor connections."
+                        }
+                    },
+                    {
+                        title: "Super You: The Relationship Amplifier",
+                        icon: "⭐",
+                        description: `
+                            <h3>⭐ From Transactional to Transformational</h3>
+                            <p>Eighteen months later, you've become known in the nonprofit sector for "relationship-scale donor communications." Your approach has spread to:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Board communications:</strong> Personalized updates, strategic insights</li>
+                                <li><strong>Client storytelling:</strong> AI-assisted privacy protection, authentic narratives</li>
+                                <li><strong>Corporate partnerships:</strong> Customized impact reports, automated but meaningful</li>
+                                <li><strong>Grant applications:</strong> Targeted to funder interests, personal organizational voice</li>
+                            </ul>
+                            <p>Your donor retention is now 68% (vs. sector average of 43%), and you spend your time on relationship building rather than mass communication logistics. Other development directors seek your advice on "scaling authenticity."</p>
+                            <p><strong>The transformation:</strong> You've become a leader who uses AI to amplify authentic relationships, not replace them.</p>
+                        `,
+                        callout: `⭐ "Super You scales authentic connection, not generic communication."`,
+                        question: "Super You: What made you an effective AI-enhanced fundraiser?",
+                        choices: [
+                            { id: "A", text: "Creating the most sophisticated donor segmentation system" },
+                            { id: "B", text: "Automating all possible donor interactions for maximum efficiency" },
+                            { id: "C", text: "Mastering the most advanced donor management software" },
+                            { id: "D", text: "Learning to use AI to amplify authentic relationship-building rather than automate it away" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Exactly! Your superpower is understanding that AI should amplify the authentic relationships that drive donor loyalty, not replace the human elements that create emotional connection. By consistently prioritizing relationship quality alongside efficiency, you've created a sustainable approach to donor engagement that other organizations want to learn from.\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• AI amplifies authentic connection<br>• Efficiency creates space for relationship building<br>• Technology serves mission-driven storytelling<br>• Balance automation with organizational personality<br>• Focus on donor experience, not just operations<br>• Scale thoughtfulness, not generic communications</div>",
+                            incorrect: "🤔 Technical mastery isn't the superpower - it's the wisdom to use AI in service of authentic relationships. That's what makes you effective in donor relations."
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Context Shows Communication Gaps", text: "Exit interviews and touchpoint analysis reveal why donors leave, not just when." },
+                    { title: "Retention Over Volume", text: "68% retention beats mass communications - quality relationships drive sustainable funding." },
+                    { title: "Segment for Relevance", text: "AI-assisted personalization works when it connects donor interests to specific program impact." },
+                    { title: "Timely Acknowledgment Matters", text: "48-hour thank-you delivery vs. 6 weeks dramatically improves donor experience." },
+                    { title: "Preserve Organizational Personality", text: "Efficiency gains should fund authentic storytelling, not replace it entirely." },
+                    { title: "Scale Authenticity", text: "The best AI applications help you be more thoughtful in relationships, not less human." }
+                ]
+            },
+            program: {
+                name: "Program Impact Measurement",
+                completionTitle: "You've Mastered AI-Enhanced Impact Tracking!",
+                insightsTitle: "📈 Your Impact Measurement Wisdom:",
+                summaryTitle: "You've transformed program evaluation using COMPAS and AI!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Discovered evaluation gaps through staff interviews and client feedback analysis",
+                    "🎯 <strong>Objective:</strong> Focused on reducing evaluation time by 50% while improving data quality and client engagement",
+                    "📋 <strong>Method:</strong> Implemented AI-assisted data analysis while maintaining client-centered evaluation practices",
+                    "📊 <strong>Performance:</strong> Achieved 45% time reduction while increasing client participation and data accuracy",
+                    "🔄 <strong>Assessment:</strong> Balanced evaluation efficiency with meaningful client engagement through feedback systems",
+                    "⭐ <strong>Super You:</strong> Became an expert at using AI to amplify client voices and program insights"
+                ],
+                scenarios: [
+                    {
+                        title: "Context: The Evaluation Overload Crisis",
+                        icon: "🔍",
+                        description: `
+                            <h3>📈 David's Data Disaster</h3>
+                            <p>You're the Program Director at a 30-person workforce development nonprofit. Your Program Manager David spends 30+ hours weekly creating reports for 8 different funders, each wanting different metrics, formats, and timelines. Meanwhile, program staff avoid evaluation tasks because they're "too time-consuming and don't help clients."</p>
+                            <p>Your current reality: Excel spreadsheets that don't talk to each other, client surveys that take weeks to analyze, quarterly reports that require manual data entry from multiple sources, and program improvements based on hunches rather than systematic analysis.</p>
+                            <p>Funders are demanding more sophisticated impact measurement, including "AI-powered analytics," but your team is drowning in the data you already collect.</p>
+                            <p><strong>Breaking point:</strong> How do you understand what evaluation is actually accomplishing vs. what it should accomplish?</p>
+                        `,
+                        callout: `🔍 You're collecting lots of data, but are you learning anything that helps clients succeed?`,
+                        question: "Context: How do you discover your evaluation reality?",
+                        choices: [
+                            { id: "A", text: "Hire an evaluation consultant to redesign your entire measurement system" },
+                            { id: "B", text: "Audit all current data collection, interview staff about evaluation pain points, and analyze which reports actually influence program decisions" },
+                            { id: "C", text: "Survey funders about their reporting requirements and preferred formats" },
+                            { id: "D", text: "Research evaluation best practices from similar workforce development programs" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Comprehensive internal discovery! Your audit revealed: 60% of collected data is never analyzed, staff spend more time on paperwork than client interaction, most 'evaluation' is compliance reporting not program improvement, and critical client outcome patterns are invisible in current systems. This shows exactly where AI could help vs. where you need better processes.\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Map all current data collection activities<br>• Interview staff about evaluation burden vs. value<br>• Analyze which reports lead to program changes<br>• Track time spent on evaluation vs. client services<br>• Identify data that exists but isn't being used</div>",
+                            incorrect: "🤔 While external perspectives help, you need to understand your internal evaluation reality first. What data helps your programs improve vs. what's just compliance theater?"
+                        }
+                    },
+                    {
+                        title: "Objective: From Compliance to Insight",
+                        icon: "🎯",
+                        description: `
+                            <h3>🎯 Beyond the Reporting Treadmill</h3>
+                            <p>Your discovery revealed the evaluation disconnect:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>David creates 15+ reports monthly but program changes aren't data-driven</li>
+                                <li>Client surveys are comprehensive but analysis is surface-level</li>
+                                <li>Staff avoid evaluation because it feels punitive, not helpful</li>
+                                <li>Success stories are anecdotal while systematic patterns are invisible</li>
+                                <li>Funders want "sophisticated analytics" but you can't even track client progression effectively</li>
+                            </ul>
+                            <p>A board member suggests: "Let's implement AI to automatically analyze everything and create predictive models for all client outcomes!" It sounds like a way to impress funders with cutting-edge evaluation.</p>
+                            <p><strong>But wait:</strong> What would actually improve your programs and client outcomes?</p>
+                        `,
+                        callout: `🔥 "AI-powered analytics" without clear improvement goals is just fancy compliance theater.`,
+                        question: "Objective: What's the REAL evaluation success you need?",
+                        choices: [
+                            { id: "A", text: "Automate all funder reporting to eliminate manual work" },
+                            { id: "B", text: "Create the most sophisticated evaluation dashboard in the nonprofit sector" },
+                            { id: "C", text: "Reduce evaluation time by 50% while increasing program staff's ability to identify and act on client success patterns" },
+                            { id: "D", text: "Implement predictive AI models for all client success factors" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Perfect program-improvement focused objective! You're measuring both efficiency (staff time) and effectiveness (actionable insights). By focusing on helping staff identify success patterns, you're setting up evaluation to actually improve client outcomes rather than just satisfy funders.\n\n<div class='implementation-tip'><h4>🎯 Evaluation Objectives:</h4>• Focus on program improvement, not just reporting<br>• Measure staff's ability to use data for decisions<br>• Balance efficiency with insight quality<br>• Connect evaluation to client success patterns<br>• Make data actionable for front-line staff</div>",
+                            incorrect: "🔥 That's solutionizing with AI! Good evaluation helps programs improve client outcomes. Focus on giving staff the insights they need to help clients succeed."
+                        }
+                    },
+                    {
+                        title: "Method: Building Learning Systems",
+                        icon: "📋",
+                        description: `
+                            <h3>📋 From Data Collection to Program Learning</h3>
+                            <p>Great objective! Now you need a method to cut evaluation time in half while improving program insights. Your current process:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Multiple systems that don't integrate</li>
+                                <li>Manual data entry and analysis</li>
+                                <li>Quarterly reporting sprints that disrupt program work</li>
+                                <li>Client feedback collected but not systematically analyzed</li>
+                                <li>Program modifications based on staff intuition, not data patterns</li>
+                            </ul>
+                            <p>You want to use AI to help identify patterns and automate routine analysis, but you need staff to trust and use the insights, not just generate them for funders.</p>
+                            <p><strong>Time for a method</strong> that serves program improvement, not just compliance.</p>
+                        `,
+                        callout: `🌿 The best evaluation systems help staff help clients more effectively.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Create a comprehensive evaluation app with AI recommendations for every client interaction" },
+                            { id: "B", text: "Hire data analysts to handle all evaluation tasks" },
+                            { id: "C", text: "Deploy AI to automatically generate all evaluation reports and predictions" },
+                            { id: "D", text: "Integrate data systems, use AI to identify client success patterns, create staff-friendly dashboards, automate routine reporting" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Excellent systematic approach! Integration eliminates duplicate entry, AI identifies patterns humans might miss, staff-friendly dashboards make insights actionable, and automation handles compliance so staff can focus on improvement. This method makes evaluation serve program effectiveness.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Start with data integration to eliminate duplication<br>• Use AI for pattern recognition, not decision-making<br>• Create dashboards for staff, not just administrators<br>• Automate compliance, amplify insights<br>• Make evaluation findings actionable for daily work</div>",
+                            incorrect: "🤔 You need staff buy-in and actionable insights, not just automated reports. Build systems that help program staff improve client outcomes through better information."
+                        }
+                    },
+                    {
+                        title: "Performance: The Pattern Recognition Revolution",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Data Becomes Insight</h3>
+                            <p>Four months into your new evaluation approach, the results are revealing:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>AI identified that clients completing orientation within 3 days vs. 10 days had 40% higher completion rates</li>
+                                <li>Pattern analysis revealed specific soft skills training sequences that predict job placement success</li>
+                                <li>Automated reporting reduced David's time from 30 to 15 hours weekly</li>
+                                <li>Staff now request data insights to improve program design</li>
+                                <li>Client feedback analysis revealed engagement issues invisible in manual review</li>
+                            </ul>
+                            <p>The breakthrough: AI didn't just save time - it revealed program insights that are actually changing how you serve clients. Staff are making evidence-based improvements instead of guessing.</p>
+                            <p><strong>The revelation:</strong> Good evaluation creates actionable insights, not just accurate reports.</p>
+                        `,
+                        callout: `💡 AI evaluation wins when it helps staff serve clients better, not just report better.`,
+                        question: "Performance: How do you build on these insights?",
+                        choices: [
+                            { id: "A", text: "Create detailed reports about your AI evaluation success for funders" },
+                            { id: "B", text: "Add more AI analysis to find even more patterns and predictions" },
+                            { id: "C", text: "Train staff to use insights for program improvements, document what works, and refine the feedback loop between data and practice" },
+                            { id: "D", text: "Focus on the time savings and add more automation" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Perfect learning-focused approach! By training staff to act on insights and documenting what works, you're building a true learning organization. The feedback loop between data and practice is what transforms evaluation from compliance to continuous improvement.\n\n<div class='implementation-tip'><h4>💡 Performance Building:</h4>• Train staff to interpret and use data insights<br>• Document program changes that result from evaluation<br>• Create feedback loops between data and practice<br>• Measure program improvement, not just reporting efficiency<br>• Build evaluation capacity across the team</div>",
+                            incorrect: "🤔 Don't lose focus on the real win - staff are using data to improve client outcomes! Build on that capacity rather than just adding more analysis or automation."
+                        }
+                    },
+                    {
+                        title: "Assessment: The Program Improvement Reality Check",
+                        icon: "🔄",
+                        description: `
+                            <h3>🔄 Measuring Learning, Not Just Efficiency</h3>
+                            <p>One year later, your evaluation transformation results:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Evaluation time reduced from 30 to 12 hours weekly ✅</li>
+                                <li>Program completion rates increased 25% through data-driven improvements ✅</li>
+                                <li>Staff regularly request evaluation insights for program decisions ✅</li>
+                                <li>Client satisfaction scores improved 30% ✅</li>
+                                <li>Funder reports are generated automatically with minimal staff time ✅</li>
+                            </ul>
+                            <p>But in a staff meeting, several program managers mention: "The dashboards are great, but sometimes we feel like we're managing to the metrics instead of responding to individual client needs. Are we losing the human element?"</p>
+                            <p><strong>Assessment challenge:</strong> How do you balance data-driven improvement with individualized client care?</p>
+                        `,
+                        callout: `🔍 Great evaluation enhances human judgment, doesn't replace it.`,
+                        question: "Assessment: How do you address the 'managing to metrics' concern?",
+                        choices: [
+                            { id: "A", text: "Use evaluation insights to inform decisions while training staff to apply findings thoughtfully to individual client situations" },
+                            { id: "B", text: "The metrics show program improvement - continue with the current approach" },
+                            { id: "C", text: "Create more sophisticated AI to provide individual client recommendations" },
+                            { id: "D", text: "Reduce the emphasis on data to restore focus on individual client needs" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Perfect balance! You're using evaluation insights as tools for informed judgment, not rigid rules. Training staff to thoughtfully apply data findings to individual situations preserves the human element while maintaining the program improvements. This is mature evaluation practice.\n\n<div class='implementation-tip'><h4>🔄 Assessment Excellence:</h4>• Use data to inform, not dictate, client services<br>• Train staff in thoughtful application of insights<br>• Balance pattern recognition with individual needs<br>• Regular check-ins on human vs. data decision-making<br>• Preserve professional judgment while using evidence</div>",
+                            incorrect: "🤔 Don't abandon data insights or ignore human concerns! Great evaluation enhances professional judgment by providing better information for client-centered decisions."
+                        }
+                    },
+                    {
+                        title: "Super You: The Learning Amplifier",
+                        icon: "⭐",
+                        description: `
+                            <h3>⭐ From Data Collector to Learning Leader</h3>
+                            <p>Two years later, you've become known for "human-centered evaluation" that actually improves programs. Your approach has influenced:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Program design:</strong> New offerings based on success pattern analysis</li>
+                                <li><strong>Staff development:</strong> Training focused on evidence-based practice</li>
+                                <li><strong>Client engagement:</strong> Intervention timing improved through predictive insights</li>
+                                <li><strong>Organizational learning:</strong> Systematic improvement culture based on evaluation</li>
+                            </ul>
+                            <p>Your programs now have sector-leading outcomes, and staff see evaluation as professional development rather than bureaucratic burden. Other nonprofits visit to learn about your "AI-enhanced learning culture."</p>
+                            <p><strong>The transformation:</strong> You've become a leader who uses AI to amplify professional judgment and program learning.</p>
+                        `,
+                        callout: `⭐ "Super You uses AI to enhance professional wisdom, not replace professional judgment."`,
+                        question: "Super You: What made you an effective AI-enhanced program leader?",
+                        choices: [
+                            { id: "A", text: "Eliminating all subjective evaluation in favor of objective AI analysis" },
+                            { id: "B", text: "Creating the most comprehensive evaluation system with maximum automation" },
+                            { id: "C", text: "Mastering the most advanced evaluation software and analytics tools" },
+                            { id: "D", text: "Learning to use AI to amplify staff insights and professional judgment rather than automate decision-making" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Exactly right! Your superpower is understanding that AI should amplify professional judgment and organizational learning, not replace the human insights that drive effective client services. By consistently focusing on how evaluation serves program improvement, you've created a learning culture that benefits both staff and clients.\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• AI amplifies professional judgment<br>• Evaluation serves program improvement<br>• Data informs human-centered decisions<br>• Learning culture over compliance culture<br>• Staff capacity building through evidence<br>• Balance insights with individual client needs</div>",
+                            incorrect: "🤔 Technical mastery isn't the superpower - it's the wisdom to use AI in service of professional learning and client outcomes. That's what makes you effective in program leadership."
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Context Reveals Evaluation vs. Compliance", text: "Most data collection serves reporting, not program improvement - AI should change that balance." },
+                    { title: "Insights Over Reports", text: "50% time reduction plus actionable patterns beats faster reporting without program learning." },
+                    { title: "Staff-Friendly Data Systems", text: "AI pattern recognition works when staff can understand and act on findings." },
+                    { title: "Evidence-Based Practice", text: "Best evaluation helps staff make better decisions about individual client needs." },
+                    { title: "Learning Culture Development", text: "Staff requesting data insights indicates evaluation serving program improvement." },
+                    { title: "Human-Centered Analytics", text: "AI should amplify professional judgment, not automate away professional wisdom." }
+                ]
+            },
+            outreach: {
+                name: "Community Outreach Enhancement",
+                completionTitle: "You've Mastered AI-Enhanced Community Engagement!",
+                insightsTitle: "🌍 Your Community Outreach Wisdom:",
+                summaryTitle: "You've transformed community engagement using COMPAS and AI!",
+                summaryContent: [
+                    "🔍 <strong>Context:</strong> Discovered outreach gaps through community listening sessions and demographic analysis",
+                    "🎯 <strong>Objective:</strong> Focused on reaching 40% more community members while improving engagement quality",
+                    "📋 <strong>Method:</strong> Implemented AI-assisted language translation and demographic targeting while maintaining authentic community voice",
+                    "📊 <strong>Performance:</strong> Achieved 35% reach increase with 50% improvement in community response rates",
+                    "🔄 <strong>Assessment:</strong> Balanced technological efficiency with community relationship building through ongoing feedback",
+                    "⭐ <strong>Super You:</strong> Became an expert at using AI to amplify community voices and bridge cultural gaps"
+                ],
+                scenarios: [
+                    {
+                        title: "Context: The Community Connection Crisis",
+                        icon: "🔍",
+                        description: `
+                            <h3>🌍 Maria's Outreach Overwhelming</h3>
+                            <p>You're the Community Engagement Director at a 25-person immigrant services nonprofit. Your Outreach Coordinator Maria is brilliant but burning out trying to connect with 7 different language communities across a sprawling metro area. Despite working 50+ hours weekly, you're reaching less than 30% of your target population.</p>
+                            <p>Your current reality: Google Translate for flyers (with embarrassing mistakes), one-size-fits-all programming that doesn't match cultural preferences, social media posts that get minimal engagement from target communities, and word-of-mouth referrals that don't scale.</p>
+                            <p>Funders want to see "innovative community engagement using technology," but you're struggling with basic translation accuracy and cultural competency.</p>
+                            <p><strong>The challenge:</strong> How do you understand what communities actually need from you vs. what you think they need?</p>
+                        `,
+                        callout: `🔍 Your outreach assumptions might be missing entire community networks and communication preferences.`,
+                        question: "Context: How do you discover your community engagement reality?",
+                        choices: [
+                            { id: "A", text: "Conduct listening sessions in each language community, analyze demographic gaps in current services, and map informal community networks" },
+                            { id: "B", text: "Hire community liaisons from each language community" },
+                            { id: "C", text: "Survey current clients about their community connections and communication preferences" },
+                            { id: "D", text: "Research successful community engagement strategies from similar organizations" }
+                        ],
+                        correct: "A",
+                        feedback: {
+                            correct: "🎯 Comprehensive community-centered discovery! Your listening sessions revealed: each community has preferred communication channels you weren't using, cultural events and gathering spaces you hadn't considered, informal leaders who could amplify your message, and service barriers you didn't realize existed. This gives you real insight into community-driven outreach.\n\n<div class='implementation-tip'><h4>🛠️ Context Discovery:</h4>• Listen in each community's preferred language and setting<br>• Map informal community networks and leaders<br>• Analyze gaps between community demographics and current clients<br>• Understand cultural communication preferences<br>• Document barriers to accessing services</div>",
+                            incorrect: "🤔 While hiring liaisons and surveys help, deep community listening reveals the networks, preferences, and barriers you need to understand for effective outreach."
+                        }
+                    },
+                    {
+                        title: "Objective: From Broadcasting to Community Building",
+                        icon: "🎯",
+                        description: `
+                            <h3>🎯 Beyond Language Translation to Cultural Connection</h3>
+                            <p>Your community listening revealed the gaps:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Each community receives information through different trusted networks</li>
+                                <li>Translation accuracy matters less than cultural relevance</li>
+                                <li>Program timing and format don't match community schedules/preferences</li>
+                                <li>Word-of-mouth referrals happen but you're not part of those conversations</li>
+                                <li>You're invisible at community events where decisions actually get made</li>
+                            </ul>
+                            <p>A tech-savvy board member suggests: "Let's create multilingual AI chatbots for every community and automate all our outreach through social media algorithms!" It sounds like a way to scale your reach efficiently.</p>
+                            <p><strong>But hold on:</strong> What would real community engagement success look like?</p>
+                        `,
+                        callout: `🔥 "Automate community engagement" risks losing the relationship-building that drives authentic connections.`,
+                        question: "Objective: What's the REAL community engagement success you need?",
+                        choices: [
+                            { id: "A", text: "Eliminate language barriers through AI translation technology" },
+                            { id: "B", text: "Increase community reach by 40% while improving engagement quality and cultural responsiveness of services" },
+                            { id: "C", text: "Reach every community member through automated multilingual communications" },
+                            { id: "D", text: "Create the most technologically advanced multilingual outreach system" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect community-centered objective! You're balancing reach with relationship quality, which is essential for authentic community engagement. By including cultural responsiveness, you're ensuring that increased reach leads to better service delivery, not just more contacts.\n\n<div class='implementation-tip'><h4>🎯 Community Objectives:</h4>• Balance reach expansion with relationship depth<br>• Measure engagement quality, not just quantity<br>• Include cultural responsiveness in success metrics<br>• Focus on community-defined value<br>• Connect outreach to improved service access</div>",
+                            incorrect: "🔥 That's focusing on technology over community relationships! Good outreach builds trust and cultural connection that leads to meaningful service engagement."
+                        }
+                    },
+                    {
+                        title: "Method: Building Cultural Bridges with Technology",
+                        icon: "📋",
+                        description: `
+                            <h3>📋 From Translation Tools to Community Connection</h3>
+                            <p>Excellent objective! Now you need a method to expand reach while improving cultural engagement. Your current approach:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Generic flyers translated through Google Translate</li>
+                                <li>Social media posts in English with minimal community engagement</li>
+                                <li>Program information delivered through formal channels only</li>
+                                <li>Limited presence at community events and gatherings</li>
+                                <li>One-way communication that doesn't build relationships</li>
+                            </ul>
+                            <p>You want to use AI for better translation and targeting, but you know that authentic community engagement requires understanding cultural context, not just language conversion.</p>
+                            <p><strong>Time for a method</strong> that bridges technology and community relationships.</p>
+                        `,
+                        callout: `🌿 The best community outreach uses technology to amplify cultural understanding, not replace it.`,
+                        question: "Method: What's your systematic approach?",
+                        choices: [
+                            { id: "A", text: "Focus entirely on improving translation accuracy and language access" },
+                            { id: "B", text: "Create a comprehensive multilingual website with AI-powered community matching" },
+                            { id: "C", text: "Use AI for culturally-aware translation, identify community-specific communication channels, partner with community leaders, create feedback loops for cultural responsiveness" },
+                            { id: "D", text: "Deploy AI chatbots to automatically engage with all community members in their preferred languages" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Excellent community-centered approach! AI helps with culturally-aware translation, channel identification leverages community knowledge, partnerships build authenticity, and feedback loops ensure you stay responsive to community needs. This method builds real relationships while using technology strategically.\n\n<div class='implementation-tip'><h4>📋 Method Design:</h4>• Use AI for cultural context, not just language translation<br>• Map each community's trusted communication channels<br>• Partner with existing community leaders and networks<br>• Create ongoing feedback mechanisms<br>• Balance technological efficiency with relationship building</div>",
+                            incorrect: "🤔 Community engagement requires relationships, not just translation! Use technology to support authentic connection with community leaders and networks."
+                        }
+                    },
+                    {
+                        title: "Performance: The Cultural Connection Breakthrough",
+                        icon: "📊",
+                        description: `
+                            <h3>💡 When Technology Serves Community Wisdom</h3>
+                            <p>Six months into your community-centered approach, the results are encouraging:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>AI-enhanced translation includes cultural context, reducing embarrassing mistakes by 90%</li>
+                                <li>Community leader partnerships increased referrals by 60% in target neighborhoods</li>
+                                <li>Social media engagement up 200% through community-specific content and timing</li>
+                                <li>Program participation increased 35% with better cultural fit</li>
+                                <li>Maria now spends time building relationships instead of fixing translation errors</li>
+                            </ul>
+                            <p>The breakthrough insight: AI translation works best when community members review and refine the cultural context. Technology amplifies community knowledge rather than replacing it.</p>
+                            <p><strong>The revelation:</strong> Community engagement succeeds when technology serves cultural authenticity.</p>
+                        `,
+                        callout: `💡 AI amplifies community voices when it's guided by community wisdom.`,
+                        question: "Performance: How do you build on this community-tech collaboration?",
+                        choices: [
+                            { id: "A", text: "Create comprehensive cultural databases for AI to use automatically" },
+                            { id: "B", text: "Expand community partnerships, document what works culturally, and refine AI tools based on community feedback" },
+                            { id: "C", text: "Automate more community interactions to increase efficiency" },
+                            { id: "D", text: "Focus on scaling the AI translation system to more communities" }
+                        ],
+                        correct: "B",
+                        feedback: {
+                            correct: "🎯 Perfect community-partnership approach! By expanding relationships and refining AI based on community feedback, you're building trust and authenticity that can't be automated. This creates sustainable community engagement that serves both technology efficiency and cultural responsiveness.\n\n<div class='implementation-tip'><h4>💡 Performance Building:</h4>• Deepen partnerships with successful community leaders<br>• Document cultural insights that improve AI performance<br>• Create community feedback systems for ongoing refinement<br>• Balance technological scaling with relationship building<br>• Measure cultural appropriateness alongside reach metrics</div>",
+                            incorrect: "🤔 Don't lose sight of the community relationships that make your technology effective! Build on the partnerships and cultural insights that are driving your success."
+                        }
+                    },
+                    {
+                        title: "Assessment: The Community Trust Evaluation",
+                        icon: "🔄",
+                        description: `
+                            <h3>🔄 Measuring Relationships, Not Just Reach</h3>
+                            <p>One year later, your community engagement transformation results:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li>Community reach increased 35% across target demographics ✅</li>
+                                <li>Program participation up 50% with higher completion rates ✅</li>
+                                <li>Community leader satisfaction with partnership up 80% ✅</li>
+                                <li>Cultural competency of services improved significantly ✅</li>
+                                <li>Staff time shifted from translation fixes to relationship building ✅</li>
+                            </ul>
+                            <p>But in a community feedback session, several longtime community leaders mention: "We appreciate the technology improvements, but sometimes we feel like you're more focused on reaching numbers of people than understanding what our community is actually going through right now."</p>
+                            <p><strong>Assessment question:</strong> How do you balance outreach efficiency with deep community understanding?</p>
+                        `,
+                        callout: `🔍 Great community engagement balances reach expansion with relationship depth and current community needs.`,
+                        question: "Assessment: How do you address the community depth concern?",
+                        choices: [
+                            { id: "A", text: "The reach metrics show success - continue with current approach" },
+                            { id: "B", text: "Create more sophisticated AI to better understand community sentiment" },
+                            { id: "C", text: "Use efficiency gains to invest more time in community listening and emerging needs assessment" },
+                            { id: "D", text: "Reduce technology use to focus entirely on relationships" }
+                        ],
+                        correct: "C",
+                        feedback: {
+                            correct: "🎯 Brilliant community-centered response! By using technological efficiency gains to invest in deeper community understanding, you're creating the best balance. This shows mature community engagement - using tools to create space for authentic relationship building and responsive service delivery.\n\n<div class='implementation-tip'><h4>🔄 Assessment Excellence:</h4>• Use efficiency gains to fund deeper community engagement<br>• Regular community listening beyond outreach metrics<br>• Balance reach expansion with current needs assessment<br>• Invest technology savings in relationship building<br>• Keep community voice central to evaluation</div>",
+                            incorrect: "🤔 Don't abandon effective tools or ignore community feedback! Use the time and efficiency you've gained to invest in the deeper community understanding leaders are asking for."
+                        }
+                    },
+                    {
+                        title: "Super You: The Community Bridge Builder",
+                        icon: "⭐",
+                        description: `
+                            <h3>⭐ From Outreach Coordinator to Community Connector</h3>
+                            <p>Eighteen months later, you've become known for "technology-enhanced community partnership" that other organizations want to learn from. Your approach now influences:</p>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Service design:</strong> Programs developed with community input using AI-supported feedback analysis</li>
+                                <li><strong>Policy advocacy:</strong> Community voices amplified through technology-supported organizing</li>
+                                <li><strong>Cultural competency:</strong> Staff training informed by AI-assisted community insight analysis</li>
+                                <li><strong>Coalition building:</strong> Cross-community connections facilitated through translation technology</li>
+                            </ul>
+                            <p>Your community engagement is now recognized as a sector model, and community leaders see you as a trusted partner who uses technology to amplify their voices rather than replace their wisdom.</p>
+                            <p><strong>The transformation:</strong> You've become a leader who uses AI to bridge cultural gaps and amplify community knowledge.</p>
+                        `,
+                        callout: `⭐ "Super You uses technology to amplify community voices, not speak for communities."`,
+                        question: "Super You: What made you an effective AI-enhanced community leader?",
+                        choices: [
+                            { id: "A", text: "Automating all community outreach for maximum efficiency" },
+                            { id: "B", text: "Creating the most comprehensive multilingual communication system" },
+                            { id: "C", text: "Mastering the most advanced translation and outreach technology" },
+                            { id: "D", text: "Learning to use AI to amplify community wisdom and bridge cultural gaps rather than automate relationship building" }
+                        ],
+                        correct: "D",
+                        feedback: {
+                            correct: "🎯 Exactly! Your superpower is understanding that AI should amplify community voices and cultural wisdom, not replace the authentic relationships that drive effective community engagement. By consistently prioritizing community partnership alongside technological efficiency, you've built trust that serves both reach and relationship goals.\n\n<div class='implementation-tip'><h4>⭐ Your Superpower:</h4>• Technology amplifies community voices<br>• Cultural wisdom guides AI implementation<br>• Relationships drive technological choices<br>• Community partnership over outreach efficiency<br>• Bridge building through cultural understanding<br>• Responsive service delivery based on community needs</div>",
+                            incorrect: "🤔 Technical mastery isn't the superpower - it's the wisdom to use AI in service of authentic community relationships and cultural bridge-building."
+                        }
+                    }
+                ],
+                insights: [
+                    { title: "Community Listening Reveals Assumptions", text: "Deep listening in each community reveals networks, preferences, and barriers invisible in current outreach." },
+                    { title: "Cultural Connection Over Translation", text: "AI-enhanced cultural context works better than accurate language translation alone." },
+                    { title: "Relationships Enable Technology", text: "Community leader partnerships make AI tools more effective and culturally appropriate." },
+                    { title: "Efficiency Funds Relationship Building", text: "Time saved from translation fixes should invest in deeper community understanding." },
+                    { title: "Community Feedback Guides AI", text: "Technology works best when refined through ongoing community input and cultural guidance." },
+                    { title: "Amplify, Don't Replace Community Voices", text: "Best AI applications help communities speak louder, not speak for communities." }
+                ]
             }
         };
 
@@ -1473,8 +2296,17 @@
 
         function selectScenario(type) {
             currentScenario = type;
+            currentStep = 0;
+            selectedChoices = {};
+            
             document.getElementById('scenarioSelection').classList.add('hidden');
+            document.getElementById('additionalScenarios').classList.add('hidden');
             document.getElementById('gameContent').classList.add('active');
+            
+            // Reset navigation state
+            document.getElementById('navigation').style.display = 'flex';
+            document.getElementById('prevBtn').disabled = true;
+            document.getElementById('nextBtn').disabled = true;
             
             // Initialize scenario data
             loadScenarioContent();
@@ -1535,6 +2367,31 @@
                     const scenario = this.closest('.scenario-card').id.split('-')[1];
                     selectChoice(parseInt(scenario), choice);
                 });
+            });
+            
+            // Restore previous selections and their visual states
+            Object.keys(selectedChoices).forEach(stepIndex => {
+                const step = parseInt(stepIndex);
+                const choice = selectedChoices[step];
+                const selectedBtn = document.querySelector(`#scenario-${step} .choice-button[data-choice="${choice}"]`);
+                const feedback = document.getElementById(`feedback-${step}`);
+                
+                if (selectedBtn && feedback) {
+                    selectedBtn.classList.add('selected');
+                    const isCorrect = choice === correctAnswers[step];
+                    
+                    if (isCorrect) {
+                        selectedBtn.classList.add('correct');
+                        feedback.className = 'feedback success';
+                        feedback.innerHTML = `✅ ${feedbackMessages[step].correct}`;
+                    } else {
+                        selectedBtn.classList.add('incorrect');
+                        feedback.className = 'feedback error';
+                        feedback.innerHTML = `❌ ${feedbackMessages[step].incorrect}`;
+                    }
+                    
+                    feedback.style.display = 'block';
+                }
             });
             
             // Update completion content
@@ -1611,8 +2468,8 @@
                 
                 updateProgress();
                 
-                // Reset navigation
-                document.getElementById('nextBtn').disabled = true;
+                // Update navigation - enable next if choice was already made, always enable previous
+                document.getElementById('nextBtn').disabled = !selectedChoices[currentStep];
                 document.getElementById('prevBtn').disabled = false;
             } else {
                 // Show completion
@@ -1631,14 +2488,9 @@
                 
                 updateProgress();
                 
-                // Update navigation
-                if (selectedChoices[currentStep]) {
-                    document.getElementById('nextBtn').disabled = false;
-                }
-                
-                if (currentStep === 0) {
-                    document.getElementById('prevBtn').disabled = true;
-                }
+                // Update navigation - enable next if choice was made, enable previous unless at step 0
+                document.getElementById('nextBtn').disabled = !selectedChoices[currentStep];
+                document.getElementById('prevBtn').disabled = (currentStep === 0);
             }
         }
 
@@ -1666,6 +2518,28 @@
                     </div>
                 `;
             }).join('');
+            
+            // Add appropriate action buttons based on scenario
+            const summaryActions = document.getElementById('summaryActions');
+            if (currentScenario === 'nonprofit') {
+                // After nonprofit scenario, offer additional scenarios
+                summaryActions.innerHTML = `
+                    <button class="restart-button" onclick="showAdditionalScenarios()">🚀 Practice More AI Scenarios</button>
+                    <button class="nav-button secondary" onclick="exitToHome()" style="margin-left: 15px;">← Exit to Home</button>
+                `;
+            } else if (currentScenario === 'volunteer' || currentScenario === 'donor' || currentScenario === 'program' || currentScenario === 'outreach') {
+                // After completing any of the 4 additional scenarios, offer to continue with more or exit
+                summaryActions.innerHTML = `
+                    <button class="restart-button" onclick="showAdditionalScenarios()">🚀 Practice More AI Scenarios</button>
+                    <button class="nav-button secondary" onclick="exitToHome()" style="margin-left: 15px;">← Exit to Home</button>
+                `;
+            } else {
+                // For moth scenario, offer to restart or exit
+                summaryActions.innerHTML = `
+                    <button class="restart-button" onclick="resetGame()">Start Another Journey</button>
+                    <button class="nav-button secondary" onclick="exitToHome()" style="margin-left: 15px;">← Exit to Home</button>
+                `;
+            }
         }
 
         function resetGame() {
@@ -1679,6 +2553,35 @@
             document.getElementById('gameContent').classList.remove('active');
             
             // Show scenario selection
+            document.getElementById('scenarioSelection').classList.remove('hidden');
+            
+            // Clear scenario content
+            document.getElementById('scenarioContent').innerHTML = '';
+            
+            // Reset navigation
+            document.getElementById('navigation').style.display = 'flex';
+            document.getElementById('prevBtn').disabled = true;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function showAdditionalScenarios() {
+            // Hide summary and show additional scenarios
+            document.getElementById('summary').classList.remove('active');
+            document.getElementById('additionalScenarios').classList.remove('hidden');
+        }
+
+        function exitToHome() {
+            currentStep = 0;
+            selectedChoices = {};
+            currentScenario = null;
+            
+            // Hide all game screens
+            document.getElementById('completion').classList.remove('active');
+            document.getElementById('summary').classList.remove('active');
+            document.getElementById('gameContent').classList.remove('active');
+            document.getElementById('additionalScenarios').classList.add('hidden');
+            
+            // Show main scenario selection (home page)
             document.getElementById('scenarioSelection').classList.remove('hidden');
             
             // Clear scenario content
