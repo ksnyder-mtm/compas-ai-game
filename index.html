@@ -875,31 +875,41 @@
 
         /* Footer styles */
         .footer {
-            margin-top: 60px;
-            padding: 30px 20px;
+            margin-top: 40px;
+            padding: 15px 20px;
             text-align: center;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         .footer-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
+            width: 40px;
+            height: 40px;
             display: block;
         }
 
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+        }
+
         .footer-text {
-            color: #666;
-            font-size: 0.9em;
-            margin: 5px 0;
+            color: #888;
+            font-size: 0.75em;
+            margin: 0;
         }
 
         .footer-link {
             color: #2c5aa0;
             text-decoration: none;
-            font-size: 0.9em;
+            font-size: 0.7em;
             transition: color 0.3s ease;
         }
 
@@ -1150,8 +1160,10 @@
         <!-- Footer -->
         <div class="footer">
             <img src="mtm-logo.png" alt="Meet the Moment" class="footer-logo">
-            <p class="footer-text">Made with ❤️ for nonprofits by Meet the Moment</p>
-            <a href="https://www.mtm.now" target="_blank" class="footer-link">www.mtm.now</a>
+            <div class="footer-content">
+                <p class="footer-text">Made with ❤️ for nonprofits by Meet the Moment</p>
+                <a href="https://www.mtm.now" target="_blank" class="footer-link">www.mtm.now</a>
+            </div>
         </div>
     </div>
 
